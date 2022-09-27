@@ -58,24 +58,6 @@ public class GUI implements ActionListener {
         this.patternHandler = handler;
     }
 
-    DocumentListener listenerTextField = new DocumentListener() {
-        public void changedUpdate(DocumentEvent e) {
-            update();
-        }
-
-        public void insertUpdate(DocumentEvent e) {
-            update();
-        }
-
-        public void removeUpdate(DocumentEvent e) {
-            update();
-        }
-
-        public void update() {
-            System.out.print("Boop ");
-        }
-    };
-
     private void buildCastOnPanel(){
         CustomPanel panelCastOn = new CustomPanel();
         panelCastOn.setBackground(Color.cyan);
@@ -87,7 +69,28 @@ public class GUI implements ActionListener {
         textFieldStitchNr.setPreferredSize(new Dimension(30,26));
         panelCastOn.add(textFieldStitchNr);
 
-        textFieldStitchNr.getDocument().addDocumentListener(listenerTextField);
+        textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { update(); }
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void update() {
+                try {
+                    int input = Integer.parseInt(textFieldStitchNr.getText());
+                    // TODO: Adjust cast on range
+                    if(input > 0){
+                        System.out.println("Boop");
+                    } else {
+                        System.out.println("Out of range.");
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Not an Integer.");
+                }
+            }
+        });
+
+        // TODO: Add distinction between 4-ply and 6-ply
+        // 6-ply using the Schachenmayr table
 
         panelMain.add(panelCastOn);
     }
@@ -102,7 +105,24 @@ public class GUI implements ActionListener {
         textFieldCuffLength.setPreferredSize(new Dimension(30,26));
         panelCuff.add(textFieldCuffLength);
 
-        textFieldCuffLength.getDocument().addDocumentListener(listenerTextField);
+        textFieldCuffLength.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { update(); }
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void update() {
+                try {
+                    int input = Integer.parseInt(textFieldCuffLength.getText());
+                    if(input >= 0){
+                        System.out.println("Boop");
+                    } else {
+                        System.out.println("Out of range.");
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Not an Integer.");
+                }
+            }
+        });
 
         JLabel labelCuffLengthRows = new JLabel("rows");
         panelCuff.add(labelCuffLengthRows);
@@ -120,7 +140,24 @@ public class GUI implements ActionListener {
         textFieldLegLength.setPreferredSize(new Dimension(30,26));
         panelLeg.add(textFieldLegLength);
 
-        textFieldLegLength.getDocument().addDocumentListener(listenerTextField);
+        textFieldLegLength.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { update(); }
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void update() {
+                try {
+                    int input = Integer.parseInt(textFieldLegLength.getText());
+                    if(input >= 0 && input < 200){
+                        System.out.println("Boop");
+                    } else {
+                        System.out.println("Out of range.");
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Not an Integer.");
+                }
+            }
+        });
 
         JLabel labelLegLengthRows = new JLabel("rows");
         panelLeg.add(labelLegLengthRows);
@@ -132,6 +169,8 @@ public class GUI implements ActionListener {
         CustomPanel panelHeel = new CustomPanel();
 
         panelHeel.setPreferredSize(new Dimension(400,50));
+
+        // TODO: Add heel sectioning (the 11/10/11 thing)
 
         panelMain.add(panelHeel);
     }
@@ -153,31 +192,44 @@ public class GUI implements ActionListener {
         textFieldFootLength.setPreferredSize(new Dimension(30,26));
         panelFoot.add(textFieldFootLength);
 
-        textFieldShoeSize.getDocument().addDocumentListener(listenerTextField);
-        textFieldFootLength.getDocument().addDocumentListener(listenerTextField);
         textFieldShoeSize.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                convertSizeToLength();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                convertSizeToLength();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                convertSizeToLength();
-            }
-            private void convertSizeToLength(){
-                int length = Integer.parseInt(textFieldShoeSize.getText());
-                if(length < 60 && length > 30){
-                    length = 50 + (length-39) * 5;
-                    textFieldFootLength.setText(Integer.toString(length));
+            public void changedUpdate(DocumentEvent e) { update(); }
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void update() {
+                try {
+                    int length = Integer.parseInt(textFieldShoeSize.getText());
+                    if(length < 60 && length > 30){
+                        length = 50 + (length-39) * 5;
+                        textFieldFootLength.setText(Integer.toString(length));
+                    } else {
+                        System.out.println("Out of range.");
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Not an Integer.");
                 }
             }
         });
+        textFieldFootLength.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { update(); }
+            public void insertUpdate(DocumentEvent e) { update(); }
+            public void removeUpdate(DocumentEvent e) { update(); }
+            public void update() {
+                try {
+                    int input = Integer.parseInt(textFieldFootLength.getText());
+                    if(input > 0 && input < 200){
+                        System.out.println("Boop");
+                    } else {
+                        System.out.println("Out of range.");
+                    }
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Not an Integer.");
+                }
+            }
+        });
+
 
         JLabel labelFootLengthRows = new JLabel("rows");
         panelFoot.add(labelFootLengthRows);
