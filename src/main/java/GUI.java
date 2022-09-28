@@ -12,11 +12,12 @@ public class GUI implements ActionListener {
     private JFrame frame;
     private JPanel panelMain;
 
-    private JTextField textFieldStitchNr;
-    private JTextField textFieldCuffLength;
-    private JTextField textFieldLegLength;
-    private JTextField textFieldShoeSize;
-    private JTextField textFieldFootLength;
+    private GUIPanel.CastOnPanel castOnPanel;
+    private GUIPanel.CuffPanel cuffPanel;
+    private GUIPanel.LegPanel legPanel;
+    private GUIPanel.HeelPanel heelPanel;
+    private GUIPanel.FootPanel footPanel;
+    private GUIPanel.ToeboxPanel toeboxPanel;
 
     public GUI(){
         frame = new JFrame();
@@ -35,12 +36,18 @@ public class GUI implements ActionListener {
         frame.add(panelWestBorder, BorderLayout.WEST);
         frame.add(panelEastBorder, BorderLayout.EAST);
 
-        buildCastOnPanel();
-        buildCuffPanel();
-        buildLegPanel();
-        buildHeelPanel();
-        buildFootPanel();
-        buildToeboxPanel();
+        castOnPanel = new GUIPanel.CastOnPanel();
+        cuffPanel = new GUIPanel.CuffPanel();
+        legPanel = new GUIPanel.LegPanel();
+        heelPanel = new GUIPanel.HeelPanel();
+        footPanel = new GUIPanel.FootPanel();
+        toeboxPanel = new GUIPanel.ToeboxPanel();
+        panelMain.add(castOnPanel);
+        panelMain.add(cuffPanel);
+        panelMain.add(legPanel);
+        panelMain.add(heelPanel);
+        panelMain.add(footPanel);
+        panelMain.add(toeboxPanel);
 
         JButton button = new JButton("Generate Pattern!");
         button.addActionListener(new ActionListener() {
@@ -58,215 +65,29 @@ public class GUI implements ActionListener {
         this.patternHandler = handler;
     }
 
-    private void buildCastOnPanel(){
-        CustomPanel panelCastOn = new CustomPanel();
-
-        JLabel labelStitchNr = new JLabel("Number of stitches: ");
-        panelCastOn.add(labelStitchNr);
-
-        textFieldStitchNr = new JTextField("60");
-        textFieldStitchNr.setPreferredSize(new Dimension(30,26));
-        panelCastOn.add(textFieldStitchNr);
-
-        textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { update(); }
-            public void insertUpdate(DocumentEvent e) { update(); }
-            public void removeUpdate(DocumentEvent e) { update(); }
-            public void update() {
-                try {
-                    int input = Integer.parseInt(textFieldStitchNr.getText());
-                    // TODO: Adjust cast on range
-                    if(input > 0){
-                        System.out.println("Boop");
-                    } else {
-                        System.out.println("Out of range.");
-                    }
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Not an Integer.");
-                }
-            }
-        });
-
-        // TODO: Add distinction between 4-ply and 6-ply
-        // 6-ply using the Schachenmayr table
-
-        panelMain.add(panelCastOn);
-    }
-
-    private void buildCuffPanel(){
-        CustomPanel panelCuff = new CustomPanel();
-
-        JLabel labelCuffLength = new JLabel("Cuff length: ");
-        panelCuff.add(labelCuffLength);
-
-        textFieldCuffLength = new JTextField("15");
-        textFieldCuffLength.setPreferredSize(new Dimension(30,26));
-        panelCuff.add(textFieldCuffLength);
-
-        textFieldCuffLength.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { update(); }
-            public void insertUpdate(DocumentEvent e) { update(); }
-            public void removeUpdate(DocumentEvent e) { update(); }
-            public void update() {
-                try {
-                    int input = Integer.parseInt(textFieldCuffLength.getText());
-                    if(input >= 0){
-                        System.out.println("Boop");
-                    } else {
-                        System.out.println("Out of range.");
-                    }
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Not an Integer.");
-                }
-            }
-        });
-
-        JLabel labelCuffLengthRows = new JLabel("rows");
-        panelCuff.add(labelCuffLengthRows);
-
-        panelMain.add(panelCuff);
-    }
-
-    private void buildLegPanel(){
-        CustomPanel panelLeg = new CustomPanel();
-
-        JLabel labelLegLength = new JLabel("Leg length: ");
-        panelLeg.add(labelLegLength);
-
-        textFieldLegLength = new JTextField("50");
-        textFieldLegLength.setPreferredSize(new Dimension(30,26));
-        panelLeg.add(textFieldLegLength);
-
-        textFieldLegLength.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { update(); }
-            public void insertUpdate(DocumentEvent e) { update(); }
-            public void removeUpdate(DocumentEvent e) { update(); }
-            public void update() {
-                try {
-                    int input = Integer.parseInt(textFieldLegLength.getText());
-                    if(input >= 0 && input < 200){
-                        System.out.println("Boop");
-                    } else {
-                        System.out.println("Out of range.");
-                    }
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Not an Integer.");
-                }
-            }
-        });
-
-        JLabel labelLegLengthRows = new JLabel("rows");
-        panelLeg.add(labelLegLengthRows);
-
-        panelMain.add(panelLeg);
-    }
-
-    private void buildHeelPanel(){
-        CustomPanel panelHeel = new CustomPanel(400,50);
-
-        // TODO: Add heel sectioning (the 11/10/11 thing)
-
-        panelMain.add(panelHeel);
-    }
-
-    private void buildFootPanel(){
-        CustomPanel panelFoot = new CustomPanel();
-
-        JLabel labelShoeSize = new JLabel("Shoe size: ");
-        panelFoot.add(labelShoeSize);
-
-        textFieldShoeSize = new JTextField("43");
-        textFieldShoeSize.setPreferredSize(new Dimension(30,26));
-        panelFoot.add(textFieldShoeSize);
-
-        JPanel panelMargin = new JPanel();
-        panelMargin.setPreferredSize(new Dimension(30,26));
-        panelFoot.add(panelMargin);
-
-        JLabel labelFootLength = new JLabel("Foot length: ");
-        panelFoot.add(labelFootLength);
-
-        textFieldFootLength = new JTextField("66");
-        textFieldFootLength.setPreferredSize(new Dimension(30,26));
-        panelFoot.add(textFieldFootLength);
-
-        textFieldShoeSize.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { update(); }
-            public void insertUpdate(DocumentEvent e) { update(); }
-            public void removeUpdate(DocumentEvent e) { update(); }
-            public void update() {
-                try {
-                    int length = Integer.parseInt(textFieldShoeSize.getText());
-                    if(length < 60 && length > 30){
-                        length = 50 + (length-39) * 5;
-                        textFieldFootLength.setText(Integer.toString(length));
-                    } else {
-                        System.out.println("Out of range.");
-                    }
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Not an Integer.");
-                }
-            }
-        });
-        textFieldFootLength.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { update(); }
-            public void insertUpdate(DocumentEvent e) { update(); }
-            public void removeUpdate(DocumentEvent e) { update(); }
-            public void update() {
-                try {
-                    int input = Integer.parseInt(textFieldFootLength.getText());
-                    if(input > 0 && input < 200){
-                        System.out.println("Boop");
-                    } else {
-                        System.out.println("Out of range.");
-                    }
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Not an Integer.");
-                }
-            }
-        });
-
-
-        JLabel labelFootLengthRows = new JLabel("rows");
-        panelFoot.add(labelFootLengthRows);
-
-        panelMain.add(panelFoot);
-    }
-
-    private void buildToeboxPanel(){
-        CustomPanel panelToebox = new CustomPanel(400,50);
-
-        panelMain.add(panelToebox);
-    }
-
     // potentially consolidate into one getInput method
     public int getStitchNr(){
-        return Integer.parseInt(textFieldStitchNr.getText());
+        return castOnPanel.getStitchNr();
     }
 
     public int getCuffLength(){
-        return Integer.parseInt(textFieldCuffLength.getText());
+        return cuffPanel.getCuffLength();
     }
 
     public int getLegLength(){
-        return Integer.parseInt(textFieldLegLength.getText());
+        return legPanel.getLegLength();
     }
 
     public int getShoeSize(){
-        return Integer.parseInt(textFieldShoeSize.getText());
+        return footPanel.getShoeSize();
     }
 
     public int getFootLength(){
-        return Integer.parseInt(textFieldFootLength.getText());
+        return footPanel.getFootLength();
     }
 
     public void setFootLength(int length){
-        textFieldFootLength.setText(Integer.toString(length));
+        footPanel.setFootLength(length);
     }
 
     @Override
