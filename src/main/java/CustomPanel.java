@@ -4,25 +4,49 @@ import java.awt.*;
 public class CustomPanel extends JPanel {
 
     private JPanel panelCenter;
+    private JPanel panelMarginTop;
+    private JPanel panelMarginLeft;
+    private JPanel panelMarginRight;
+
+    private int height = 100;
+    private int width = 400;
+    private int marginTop = 25;
+    private int marginLeft = 50;
+    private int marginRight = 50;
 
     public CustomPanel(){
         super();
         setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
-        setPreferredSize(new Dimension(400,100));
+        setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
 
-        JPanel panelMarginTop = new JPanel();
-        panelMarginTop.setPreferredSize(new Dimension(390, 25));
+        addSubPanels();
+    }
+
+    public CustomPanel(int customWidth, int customHeight){
+        super();
+        setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+        this.width = customWidth;
+        this.height = customHeight;
+        setPreferredSize(new Dimension(width, height));
+        setLayout(new BorderLayout());
+
+        addSubPanels();
+    }
+
+    private void addSubPanels(){
+        panelMarginTop = new JPanel();
+        panelMarginTop.setPreferredSize(new Dimension(width-10, marginTop));
         panelMarginTop.setOpaque(false);
         add(panelMarginTop, BorderLayout.NORTH);
 
-        JPanel panelMarginLeft = new JPanel();
-        panelMarginLeft.setPreferredSize(new Dimension(50, 100));
+        panelMarginLeft = new JPanel();
+        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, height));
         panelMarginLeft.setOpaque(false);
         add(panelMarginLeft, BorderLayout.WEST);
 
-        JPanel panelMarginRight = new JPanel();
-        panelMarginRight.setPreferredSize(new Dimension(50, 100));
+        panelMarginRight = new JPanel();
+        panelMarginRight.setPreferredSize(new Dimension(marginRight, height));
         panelMarginRight.setOpaque(false);
         add(panelMarginRight, BorderLayout.EAST);
 
@@ -34,5 +58,20 @@ public class CustomPanel extends JPanel {
     public Component add(Component c){
         panelCenter.add(c);
         return this;
+    }
+
+    public void setMarginTop(int marginTop){
+        this.marginTop = marginTop;
+        panelMarginTop.setPreferredSize(new Dimension(width-10, marginTop));
+    }
+
+    public void setMarginLeft(int marginLeft) {
+        this.marginLeft = marginLeft;
+        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, height));
+    }
+
+    public void setMarginRight(int marginRight) {
+        this.marginRight = marginRight;
+        panelMarginRight.setPreferredSize(new Dimension(marginRight, height));
     }
 }

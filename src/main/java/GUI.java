@@ -60,7 +60,6 @@ public class GUI implements ActionListener {
 
     private void buildCastOnPanel(){
         CustomPanel panelCastOn = new CustomPanel();
-        panelCastOn.setBackground(Color.cyan);
 
         JLabel labelStitchNr = new JLabel("Number of stitches: ");
         panelCastOn.add(labelStitchNr);
@@ -166,9 +165,7 @@ public class GUI implements ActionListener {
     }
 
     private void buildHeelPanel(){
-        CustomPanel panelHeel = new CustomPanel();
-
-        panelHeel.setPreferredSize(new Dimension(400,50));
+        CustomPanel panelHeel = new CustomPanel(400,50);
 
         // TODO: Add heel sectioning (the 11/10/11 thing)
 
@@ -184,6 +181,10 @@ public class GUI implements ActionListener {
         textFieldShoeSize = new JTextField("43");
         textFieldShoeSize.setPreferredSize(new Dimension(30,26));
         panelFoot.add(textFieldShoeSize);
+
+        JPanel panelMargin = new JPanel();
+        panelMargin.setPreferredSize(new Dimension(30,26));
+        panelFoot.add(panelMargin);
 
         JLabel labelFootLength = new JLabel("Foot length: ");
         panelFoot.add(labelFootLength);
@@ -238,9 +239,7 @@ public class GUI implements ActionListener {
     }
 
     private void buildToeboxPanel(){
-        CustomPanel panelToebox = new CustomPanel();
-
-        panelToebox.setPreferredSize(new Dimension(400,50));
+        CustomPanel panelToebox = new CustomPanel(400,50);
 
         panelMain.add(panelToebox);
     }
