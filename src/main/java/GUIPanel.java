@@ -37,6 +37,7 @@ public class GUIPanel extends CustomPanel{
                         if(stitchNr > 0 && stitchNr <= 100){
                             System.out.println("Boop");
                             gui.updateHeel();
+                            gui.updateToebox();
                         } else {
                             System.out.println("Out of range.");
                         }
@@ -274,8 +275,34 @@ public class GUIPanel extends CustomPanel{
 
     public static class ToeboxPanel extends GUIPanel{
 
+        private JTextField textFieldToebox1;
+
         public ToeboxPanel(GUI gui){
             super(gui);
+            setMarginTop(15);
+
+            JLabel labelToebox1a = new JLabel("Decrease every other round for");
+            add(labelToebox1a);
+            textFieldToebox1 = new JTextField("14");
+            textFieldToebox1.setPreferredSize(new Dimension(25,26));
+            add(textFieldToebox1);
+            JLabel labelToebox1b = new JLabel("total rounds");
+            add(labelToebox1b);
+
+            JLabel labelToebox2a = new JLabel("Decreases every round until");
+            add(labelToebox2a);
+            JTextField textFieldToebox2 = new JTextField("4");
+            textFieldToebox2.setPreferredSize(new Dimension(20,26));
+            add(textFieldToebox2);
+            JLabel labelToebox2b = new JLabel("stitches/needle");
+            add(labelToebox2b);
+        }
+
+        public void updateToebox(){
+            // calculate in two steps to ensure the number of rounds is even
+            int decreaseRounds = gui.getStitchNr() / 8;
+            decreaseRounds *= 2;
+            textFieldToebox1.setText(Integer.toString(decreaseRounds));
         }
     }
 }

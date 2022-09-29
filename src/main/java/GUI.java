@@ -86,4 +86,8 @@ public class GUI {
         heelPanel.updateHeel();
     }
 
+    public void updateToebox(){
+        toeboxPanel.updateToebox();
+    }
+
 }
