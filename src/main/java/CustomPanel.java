@@ -60,6 +60,10 @@ public class CustomPanel extends JPanel {
         return this;
     }
 
+    public void setHeight(int newHeight){
+        setPreferredSize(new Dimension(width, newHeight));
+    }
+
     public void setMarginTop(int marginTop){
         this.marginTop = marginTop;
         panelMarginTop.setPreferredSize(new Dimension(width-10, marginTop));

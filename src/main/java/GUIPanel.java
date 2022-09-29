@@ -5,13 +5,20 @@ import java.awt.*;
 
 public class GUIPanel extends CustomPanel{
 
+    private static GUI gui;
+
+    public GUIPanel(GUI gui){
+        super();
+        GUIPanel.gui = gui;
+    }
+
     public static class CastOnPanel extends GUIPanel{
 
         private JTextField textFieldStitchNr;
         private int stitchNr;
 
-        public CastOnPanel(){
-            super();
+        public CastOnPanel(GUI gui){
+            super(gui);
             JLabel labelStitchNr = new JLabel("Number of stitches: ");
             add(labelStitchNr);
 
@@ -30,6 +37,7 @@ public class GUIPanel extends CustomPanel{
                         // TODO: Adjust cast on range
                         if(stitchNr > 0){
                             System.out.println("Boop");
+                            gui.updateHeel();
                         } else {
                             System.out.println("Out of range.");
                         }
@@ -47,6 +55,7 @@ public class GUIPanel extends CustomPanel{
         public int getStitchNr(){
             return stitchNr;
         }
+
     }
 
     public static class CuffPanel extends GUIPanel{
@@ -54,8 +63,8 @@ public class GUIPanel extends CustomPanel{
         private JTextField textFieldCuffLength;
         private int cuffLength;
 
-        public CuffPanel(){
-            super();
+        public CuffPanel(GUI gui){
+            super(gui);
             JLabel labelCuffLength = new JLabel("Cuff length: ");
             add(labelCuffLength);
 
@@ -97,8 +106,8 @@ public class GUIPanel extends CustomPanel{
         private JTextField textFieldLegLength;
         private int legLength;
 
-        public LegPanel(){
-            super();
+        public LegPanel(GUI gui){
+            super(gui);
             JLabel labelLegLength = new JLabel("Leg length: ");
             add(labelLegLength);
 
@@ -137,11 +146,47 @@ public class GUIPanel extends CustomPanel{
 
     public static class HeelPanel extends GUIPanel{
 
-        public HeelPanel(){
-            super();
+        private JLabel labelHeelSectioning;
+
+        public HeelPanel(GUI gui){
+            super(gui);
+            setHeight(70);
+            setMarginTop(20);
+
+            JLabel labelHeadline = new JLabel("Heel sectioning:");
+            add(labelHeadline);
+
+            labelHeelSectioning = new JLabel(generateHeelSectioning());
+            add(labelHeelSectioning);
 
             // TODO: Add heel sectioning (the 11/10/11 thing)
         }
+
+        private String generateHeelSectioning(){
+            int side, middle = 0;
+
+            int heelStitchNr = gui.getStitchNr() / 2;
+            switch (heelStitchNr % 3) {
+                case 0 -> {
+                    side = heelStitchNr / 3;
+                    middle = side;
+                }
+                case 1 -> {
+                    side = heelStitchNr / 3;
+                    middle = side + 1;
+                }
+                default -> {
+                    side = heelStitchNr / 3 + 1;
+                    middle = side - 1;
+                }
+            }
+            return side + " / " + middle + " / " + side;
+        }
+
+        public void updateHeel(){
+            labelHeelSectioning.setText(generateHeelSectioning());
+        }
+
     }
 
     public static class FootPanel extends GUIPanel{
@@ -151,8 +196,8 @@ public class GUIPanel extends CustomPanel{
         private int shoeSize;
         private int footLength;
 
-        public FootPanel(){
-            super();
+        public FootPanel(GUI gui){
+            super(gui);
             JLabel labelShoeSize = new JLabel("Shoe size: ");
             add(labelShoeSize);
 
@@ -231,8 +276,8 @@ public class GUIPanel extends CustomPanel{
 
     public static class ToeboxPanel extends GUIPanel{
 
-        public ToeboxPanel(){
-            super();
+        public ToeboxPanel(GUI gui){
+            super(gui);
         }
     }
 }

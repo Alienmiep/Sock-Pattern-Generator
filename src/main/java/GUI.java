@@ -36,12 +36,12 @@ public class GUI implements ActionListener {
         frame.add(panelWestBorder, BorderLayout.WEST);
         frame.add(panelEastBorder, BorderLayout.EAST);
 
-        castOnPanel = new GUIPanel.CastOnPanel();
-        cuffPanel = new GUIPanel.CuffPanel();
-        legPanel = new GUIPanel.LegPanel();
-        heelPanel = new GUIPanel.HeelPanel();
-        footPanel = new GUIPanel.FootPanel();
-        toeboxPanel = new GUIPanel.ToeboxPanel();
+        castOnPanel = new GUIPanel.CastOnPanel(this);
+        cuffPanel = new GUIPanel.CuffPanel(this);
+        legPanel = new GUIPanel.LegPanel(this);
+        heelPanel = new GUIPanel.HeelPanel(this);
+        footPanel = new GUIPanel.FootPanel(this);
+        toeboxPanel = new GUIPanel.ToeboxPanel(this);
         panelMain.add(castOnPanel);
         panelMain.add(cuffPanel);
         panelMain.add(legPanel);
@@ -88,6 +88,10 @@ public class GUI implements ActionListener {
 
     public void setFootLength(int length){
         footPanel.setFootLength(length);
+    }
+
+    public void updateHeel(){
+        heelPanel.updateHeel();
     }
 
     @Override
