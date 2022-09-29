@@ -24,7 +24,7 @@ public class GUIPanel extends CustomPanel{
 
             stitchNr = 60;
             textFieldStitchNr = new JTextField("60");
-            textFieldStitchNr.setPreferredSize(new Dimension(30,26));
+            textFieldStitchNr.setPreferredSize(new Dimension(30,24));
             add(textFieldStitchNr);
 
             textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
@@ -36,8 +36,7 @@ public class GUIPanel extends CustomPanel{
                         stitchNr = Integer.parseInt(textFieldStitchNr.getText());
                         if(stitchNr > 0 && stitchNr <= 100){
                             System.out.println("Boop");
-                            gui.updateHeel();
-                            gui.updateToebox();
+                            gui.updateStitchNr();
                         } else {
                             System.out.println("Out of range.");
                         }
@@ -65,12 +64,14 @@ public class GUIPanel extends CustomPanel{
 
         public CuffPanel(GUI gui){
             super(gui);
+            setMarginTop(18);
+
             JLabel labelCuffLength = new JLabel("Cuff length: ");
             add(labelCuffLength);
 
             cuffLength = 15;
             textFieldCuffLength = new JTextField("15");
-            textFieldCuffLength.setPreferredSize(new Dimension(30,26));
+            textFieldCuffLength.setPreferredSize(new Dimension(25,24));
             add(textFieldCuffLength);
 
             textFieldCuffLength.getDocument().addDocumentListener(new DocumentListener() {
@@ -80,7 +81,7 @@ public class GUIPanel extends CustomPanel{
                 public void update() {
                     try {
                         cuffLength = Integer.parseInt(textFieldCuffLength.getText());
-                        if(cuffLength >= 0){
+                        if(cuffLength >= 0 && cuffLength <= 200){
                             System.out.println("Boop");
                         } else {
                             System.out.println("Out of range.");
@@ -94,6 +95,23 @@ public class GUIPanel extends CustomPanel{
 
             JLabel labelCuffLengthRows = new JLabel("rows");
             add(labelCuffLengthRows);
+
+            JPanel panelMargin = new JPanel();
+            panelMargin.setPreferredSize(new Dimension(150,24));
+            add(panelMargin);
+
+            JLabel labelRibbing = new JLabel("Rib: ");
+            add(labelRibbing);
+            JTextField textFieldRibbingKnit = new JTextField("1");
+            textFieldRibbingKnit.setPreferredSize(new Dimension(20,24));
+            add(textFieldRibbingKnit);
+            JLabel labelRibbingKnit = new JLabel("Knit,");
+            add(labelRibbingKnit);
+            JTextField textFieldRibbingPurl = new JTextField("1");
+            textFieldRibbingPurl.setPreferredSize(new Dimension(20,24));
+            add(textFieldRibbingPurl);
+            JLabel labelRibbingPurl = new JLabel("Purl");
+            add(labelRibbingPurl);
         }
 
         public int getCuffLength(){
@@ -108,12 +126,14 @@ public class GUIPanel extends CustomPanel{
 
         public LegPanel(GUI gui){
             super(gui);
+            setHeight(70);
+
             JLabel labelLegLength = new JLabel("Leg length: ");
             add(labelLegLength);
 
             legLength = 50;
             textFieldLegLength = new JTextField("50");
-            textFieldLegLength.setPreferredSize(new Dimension(30,26));
+            textFieldLegLength.setPreferredSize(new Dimension(30,24));
             add(textFieldLegLength);
 
             textFieldLegLength.getDocument().addDocumentListener(new DocumentListener() {
@@ -123,7 +143,7 @@ public class GUIPanel extends CustomPanel{
                 public void update() {
                     try {
                         int input = Integer.parseInt(textFieldLegLength.getText());
-                        if(input >= 0 && input < 200){
+                        if(input >= 0 && input <= 200){
                             System.out.println("Boop");
                         } else {
                             System.out.println("Out of range.");
@@ -151,7 +171,6 @@ public class GUIPanel extends CustomPanel{
         public HeelPanel(GUI gui){
             super(gui);
             setHeight(70);
-            setMarginTop(20);
 
             JLabel labelHeadline = new JLabel("Heel sectioning:");
             add(labelHeadline);
@@ -201,11 +220,11 @@ public class GUIPanel extends CustomPanel{
 
             shoeSize = 43;
             textFieldShoeSize = new JTextField("43");
-            textFieldShoeSize.setPreferredSize(new Dimension(30,26));
+            textFieldShoeSize.setPreferredSize(new Dimension(30,24));
             add(textFieldShoeSize);
 
             JPanel panelMargin = new JPanel();
-            panelMargin.setPreferredSize(new Dimension(30,26));
+            panelMargin.setPreferredSize(new Dimension(30,24));
             panelMargin.setOpaque(false);
             add(panelMargin);
 
@@ -214,7 +233,7 @@ public class GUIPanel extends CustomPanel{
 
             footLength = 66;
             textFieldFootLength = new JTextField("66");
-            textFieldFootLength.setPreferredSize(new Dimension(30,26));
+            textFieldFootLength.setPreferredSize(new Dimension(30,24));
             add(textFieldFootLength);
 
             textFieldShoeSize.getDocument().addDocumentListener(new DocumentListener() {
@@ -284,7 +303,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelToebox1a = new JLabel("Decrease every other round for");
             add(labelToebox1a);
             textFieldToebox1 = new JTextField("14");
-            textFieldToebox1.setPreferredSize(new Dimension(25,26));
+            textFieldToebox1.setPreferredSize(new Dimension(25,24));
             add(textFieldToebox1);
             JLabel labelToebox1b = new JLabel("total rounds");
             add(labelToebox1b);
@@ -292,7 +311,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelToebox2a = new JLabel("Decreases every round until");
             add(labelToebox2a);
             JTextField textFieldToebox2 = new JTextField("4");
-            textFieldToebox2.setPreferredSize(new Dimension(20,26));
+            textFieldToebox2.setPreferredSize(new Dimension(20,24));
             add(textFieldToebox2);
             JLabel labelToebox2b = new JLabel("stitches/needle");
             add(labelToebox2b);

@@ -82,11 +82,8 @@ public class GUI {
         return footPanel.getFootLength();
     }
 
-    public void updateHeel(){
+    public void updateStitchNr(){
         heelPanel.updateHeel();
-    }
-
-    public void updateToebox(){
         toeboxPanel.updateToebox();
     }
 
