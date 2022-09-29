@@ -34,8 +34,7 @@ public class GUIPanel extends CustomPanel{
                 public void update() {
                     try {
                         stitchNr = Integer.parseInt(textFieldStitchNr.getText());
-                        // TODO: Adjust cast on range
-                        if(stitchNr > 0){
+                        if(stitchNr > 0 && stitchNr <= 100){
                             System.out.println("Boop");
                             gui.updateHeel();
                         } else {
@@ -158,8 +157,6 @@ public class GUIPanel extends CustomPanel{
 
             labelHeelSectioning = new JLabel(generateHeelSectioning());
             add(labelHeelSectioning);
-
-            // TODO: Add heel sectioning (the 11/10/11 thing)
         }
 
         private String generateHeelSectioning(){
@@ -208,6 +205,7 @@ public class GUIPanel extends CustomPanel{
 
             JPanel panelMargin = new JPanel();
             panelMargin.setPreferredSize(new Dimension(30,26));
+            panelMargin.setOpaque(false);
             add(panelMargin);
 
             JLabel labelFootLength = new JLabel("Foot length: ");

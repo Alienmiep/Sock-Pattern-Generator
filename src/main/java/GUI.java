@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI implements ActionListener {
+public class GUI {
 
     private PatternHandler patternHandler = null;
 
@@ -50,13 +50,9 @@ public class GUI implements ActionListener {
         panelMain.add(toeboxPanel);
 
         JButton button = new JButton("Generate Pattern!");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                patternHandler.generatePattern();
-            }
-        });
+        button.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
         panelMain.add(button);
+
         frame.add(panelMain, BorderLayout.CENTER);
         frame.setVisible(true);
     }
@@ -86,17 +82,8 @@ public class GUI implements ActionListener {
         return footPanel.getFootLength();
     }
 
-    public void setFootLength(int length){
-        footPanel.setFootLength(length);
-    }
-
     public void updateHeel(){
         heelPanel.updateHeel();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //count++;
-        //label.setText("Number of clicks: " + count);
-    }
 }
