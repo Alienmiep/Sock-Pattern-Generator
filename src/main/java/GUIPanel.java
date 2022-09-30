@@ -19,6 +19,17 @@ public class GUIPanel extends CustomPanel{
 
         public CastOnPanel(GUI gui){
             super(gui);
+            setHeight(100);
+
+            String[] yarnOptions = {"4-ply Sock Yarn", "6-ply Sock Yarn"};
+            JComboBox<String> comboBoxYarn = new JComboBox<>(yarnOptions);
+            comboBoxYarn.setPreferredSize(new Dimension(130,30));
+            add(comboBoxYarn);
+
+            JPanel panelMargin = new JPanel();
+            panelMargin.setPreferredSize(new Dimension(10, 30));
+            add(panelMargin);
+
             JLabel labelStitchNr = new JLabel("Number of stitches: ");
             add(labelStitchNr);
 
@@ -64,7 +75,7 @@ public class GUIPanel extends CustomPanel{
 
         public CuffPanel(GUI gui){
             super(gui);
-            setMarginTop(18);
+            setHeight(130);
 
             JLabel labelCuffLength = new JLabel("Cuff length: ");
             add(labelCuffLength);
@@ -100,6 +111,10 @@ public class GUIPanel extends CustomPanel{
             panelMargin.setPreferredSize(new Dimension(150,24));
             add(panelMargin);
 
+            JPanel panelMargin2 = new JPanel();
+            panelMargin2.setPreferredSize(new Dimension(380, 5));
+            add(panelMargin2);
+
             JLabel labelRibbing = new JLabel("Rib: ");
             add(labelRibbing);
             JTextField textFieldRibbingKnit = new JTextField("1");
@@ -126,7 +141,7 @@ public class GUIPanel extends CustomPanel{
 
         public LegPanel(GUI gui){
             super(gui);
-            setHeight(70);
+            setHeight(90);
 
             JLabel labelLegLength = new JLabel("Leg length: ");
             add(labelLegLength);
@@ -170,7 +185,7 @@ public class GUIPanel extends CustomPanel{
 
         public HeelPanel(GUI gui){
             super(gui);
-            setHeight(70);
+            setHeight(90);
 
             JLabel labelHeadline = new JLabel("Heel sectioning:");
             add(labelHeadline);
@@ -215,6 +230,8 @@ public class GUIPanel extends CustomPanel{
 
         public FootPanel(GUI gui){
             super(gui);
+            setHeight(90);
+
             JLabel labelShoeSize = new JLabel("Shoe size: ");
             add(labelShoeSize);
 
@@ -298,7 +315,7 @@ public class GUIPanel extends CustomPanel{
 
         public ToeboxPanel(GUI gui){
             super(gui);
-            setMarginTop(15);
+            setHeight(130);
 
             JLabel labelToebox1a = new JLabel("Decrease every other round for");
             add(labelToebox1a);
@@ -307,6 +324,10 @@ public class GUIPanel extends CustomPanel{
             add(textFieldToebox1);
             JLabel labelToebox1b = new JLabel("total rounds");
             add(labelToebox1b);
+
+            JPanel panelMargin = new JPanel();
+            panelMargin.setPreferredSize(new Dimension(380,5));
+            add(panelMargin);
 
             JLabel labelToebox2a = new JLabel("Decreases every round until");
             add(labelToebox2a);

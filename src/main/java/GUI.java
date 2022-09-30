@@ -49,6 +49,10 @@ public class GUI {
         panelMain.add(footPanel);
         panelMain.add(toeboxPanel);
 
+        JPanel panelMargin = new JPanel();
+        panelMargin.setPreferredSize(new Dimension(380, 20));
+        panelMain.add(panelMargin);
+
         JButton button = new JButton("Generate Pattern!");
         button.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
         panelMain.add(button);
