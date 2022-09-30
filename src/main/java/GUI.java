@@ -53,9 +53,17 @@ public class GUI {
         panelMargin.setPreferredSize(new Dimension(380, 20));
         panelMain.add(panelMargin);
 
-        JButton button = new JButton("Generate Pattern!");
-        button.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
-        panelMain.add(button);
+        JButton buttonPattern = new JButton("Generate Pattern!");
+        buttonPattern.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
+        panelMain.add(buttonPattern);
+
+        JPanel panelMarginButtons = new JPanel();
+        panelMarginButtons.setPreferredSize(new Dimension(30, 30));
+        panelMain.add(panelMarginButtons);
+
+        JButton buttonSockData = new JButton("Save Sock Data!");
+        buttonSockData.addActionListener(e -> { if(patternHandler!=null) patternHandler.saveSock();});
+        panelMain.add(buttonSockData);
 
         frame.add(panelMain, BorderLayout.CENTER);
         frame.setVisible(true);
