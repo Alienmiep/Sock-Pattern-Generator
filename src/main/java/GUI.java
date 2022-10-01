@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class GUI {
 
     private PatternHandler patternHandler = null;
+    private static Sock sock;
 
     private JFrame frame;
     private JPanel panelMain;
@@ -19,7 +20,9 @@ public class GUI {
     private GUIPanel.FootPanel footPanel;
     private GUIPanel.ToeboxPanel toeboxPanel;
 
-    public GUI(){
+    public GUI(Sock sock){
+        GUI.sock = sock;
+
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,30 +76,16 @@ public class GUI {
         this.patternHandler = handler;
     }
 
-    // potentially consolidate into one getInput method
-    public int getStitchNr(){
-        return castOnPanel.getStitchNr();
+    public Sock getSock(){
+        return sock;
     }
 
-    public int getCuffLength(){
-        return cuffPanel.getCuffLength();
+    public void updateHeel(String heelSectioning){
+        heelPanel.updateHeel(heelSectioning);
     }
 
-    public int getLegLength(){
-        return legPanel.getLegLength();
-    }
-
-    public int getShoeSize(){
-        return footPanel.getShoeSize();
-    }
-
-    public int getFootLength(){
-        return footPanel.getFootLength();
-    }
-
-    public void updateStitchNr(){
-        heelPanel.updateHeel();
-        toeboxPanel.updateToebox();
+    public void updateToebox(int decreaseRounds){
+        toeboxPanel.updateToebox(decreaseRounds);
     }
 
 }

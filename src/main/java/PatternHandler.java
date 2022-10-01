@@ -5,31 +5,15 @@ import java.nio.file.Path;
 import org.json.simple.JSONObject;
 
 public class PatternHandler {
-    private static GUI gui;
-    private int stitchNr, cuffLength, legLength, shoeSize, footLength = 0;
-    private Path currentPath;
+    private static Sock sock;
+    private final Path currentPath;
 
-    public PatternHandler(GUI gui){
-        PatternHandler.gui = gui;
+    public PatternHandler(Sock sock){
+        PatternHandler.sock = sock;
         currentPath = Path.of(System.getProperty("user.dir"));
     }
 
-    // TODO: change into getSock and make a Sock class
-    private void getSockData(){
-        stitchNr = gui.getStitchNr();
-        cuffLength = gui.getCuffLength();
-        legLength = gui.getLegLength();
-        shoeSize = gui.getShoeSize();
-        footLength = gui.getFootLength();
-        System.out.println("Stitch Nr: " + stitchNr);
-        System.out.println("Cuff Length: " + cuffLength);
-        System.out.println("Leg Length: " + legLength);
-        System.out.println("Shoe Size: " + shoeSize);
-        System.out.println("Foot Length: " + footLength);
-    }
-
     public void generatePattern(){
-        getSockData();
         Path pathMyPatterns = Path.of(currentPath + "/MyPatterns");
 
         if(!Files.exists(pathMyPatterns)){
@@ -45,7 +29,6 @@ public class PatternHandler {
     }
 
     public void saveSock(){
-        getSockData();
         Path pathMySocks = Path.of(currentPath + "/MySocks");
 
         if(!Files.exists(pathMySocks)){
@@ -60,11 +43,11 @@ public class PatternHandler {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Stitch_Nr", stitchNr);
-        jsonObject.put("Cuff_Length", cuffLength);
-        jsonObject.put("Leg_Length", legLength);
-        jsonObject.put("Shoe_Size", shoeSize);
-        jsonObject.put("Foot_Length", footLength);
+        jsonObject.put("Stitch_Nr", sock.getStitchNr());
+        jsonObject.put("Cuff_Length", sock.getCuffLength());
+        jsonObject.put("Leg_Length", sock.getLegLength());
+        jsonObject.put("Shoe_Size", sock.getShoeSize());
+        jsonObject.put("Foot_Length", sock.getFootLength());
 
         try {
             FileWriter output = new FileWriter(pathMySocks + "/sock.json");
