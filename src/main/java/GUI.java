@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Class responsible for building the GUI around the 6 GUI panels and managing the buttons at the bottom
+ * The panels follow the structure of a cuff-to-toe sock: Cast on, Cuff, Leg, Heel, Foot and Toebox
+ */
 public class GUI {
 
     private PatternHandler patternHandler = null;

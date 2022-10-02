@@ -3,12 +3,24 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
+/**
+ * Utility class that houses the individual GUI panels (to not clutter up the GUI class)
+ * The individual GUI panels are built and formatted here
+ * Inputs are checked for format and range here too
+ */
 public class GUIPanel extends CustomPanel{
 
     public GUIPanel(){
         super();
     }
 
+    /**
+     * Utility function that adds an invisible panel to space out GUI components
+     *
+     * @param jPanel the panel to add the space to
+     * @param width desired panel width
+     * @param height desired panel height
+     */
     public static void addMarginPanel(JPanel jPanel, int width, int height){
         JPanel panelMargin = new JPanel();
         panelMargin.setPreferredSize(new Dimension(width, height));
@@ -16,6 +28,9 @@ public class GUIPanel extends CustomPanel{
         jPanel.add(panelMargin);
     }
 
+    /**
+     * Panel that contains the yarn thickness (ply) and number of stitches to cast on
+     */
     public static class CastOnPanel extends GUIPanel{
 
         private JTextField textFieldStitchNr;
@@ -64,6 +79,10 @@ public class GUIPanel extends CustomPanel{
 
     }
 
+    /**
+     * Panel that contains the length of the sock cuff (0 is permitted, since the cuff is an optional part of the sock)
+     * The user can also set the ribbing pattern of the cuff (patterns other than rib aren't supported)
+     */
     public static class CuffPanel extends GUIPanel{
 
         private JTextField textFieldCuffLength;
@@ -101,8 +120,8 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            JLabel labelCuffLengthRows = new JLabel("rows");
-            add(labelCuffLengthRows);
+            JLabel labelCuffLengthRounds = new JLabel("rounds");
+            add(labelCuffLengthRounds);
 
             GUIPanel.addMarginPanel(this,150,24);
             GUIPanel.addMarginPanel(this,380,5);
@@ -123,6 +142,10 @@ public class GUIPanel extends CustomPanel{
 
     }
 
+    /**
+     * Panel that contains the length of the leg part in rounds
+     * The user can also set stripes, rib or other patterns here (yet to be implemented)
+     */
     public static class LegPanel extends GUIPanel{
 
         private JTextField textFieldLegLength;
@@ -160,12 +183,16 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            JLabel labelLegLengthRows = new JLabel("rows");
-            add(labelLegLengthRows);
+            JLabel labelLegLengthRounds = new JLabel("rounds");
+            add(labelLegLengthRounds);
         }
 
     }
 
+    /**
+     * Panel that displays the heel sectioning for a German Short Row heel
+     * Other heel types like gusset heels may be implemented in the future
+     */
     public static class HeelPanel extends GUIPanel{
 
         private JLabel labelHeelSectioning;
@@ -187,6 +214,11 @@ public class GUIPanel extends CustomPanel{
 
     }
 
+    /**
+     * Panel that contains the shoe size and calculated foot length in rounds
+     * (The user is able to overwrite the calculated number of foot rounds)
+     * If the sock has a 3d pattern (like a rib), the user can set the sole to be flat
+     */
     public static class FootPanel extends GUIPanel{
 
         private JTextField textFieldShoeSize;
@@ -255,12 +287,17 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            JLabel labelFootLengthRows = new JLabel("rows");
-            add(labelFootLengthRows);
+            JLabel labelFootLengthRounds = new JLabel("rounds");
+            add(labelFootLengthRounds);
         }
 
     }
 
+    /**
+     * Panel that displays the number of rounds for the first phase of the toebox (decreasing every other round)
+     * This number is calculated based on the number of cast on stitches, but the user may overwrite it
+     * The user can also specify the final number of stitches per needle
+     */
     public static class ToeboxPanel extends GUIPanel{
 
         private JTextField textFieldToebox1;

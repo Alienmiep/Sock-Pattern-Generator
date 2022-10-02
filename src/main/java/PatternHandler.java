@@ -4,6 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.json.simple.JSONObject;
 
+/**
+ * The class responsible for exporting
+ * a) the sock pattern as a text file (with knitting instructions) and
+ * b) the sock parameters and eventual notes as a JSON file (for storing past sock projects)
+ */
 public class PatternHandler {
     private static Sock sock;
     private final Path currentPath;
@@ -48,6 +53,7 @@ public class PatternHandler {
         jsonObject.put("Leg_Length", sock.getLegLength());
         jsonObject.put("Shoe_Size", sock.getShoeSize());
         jsonObject.put("Foot_Length", sock.getFootLength());
+        // TODO: ask user for any additional notes/yarn name
 
         try {
             FileWriter output = new FileWriter(pathMySocks + "/sock.json");

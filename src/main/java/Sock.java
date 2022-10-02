@@ -1,3 +1,6 @@
+/**
+ * Stores all sock parameters and methods to generate sock-related info (like the heel sectioning)
+ */
 public class Sock {
 
     private static GUI gui;
@@ -67,11 +70,21 @@ public class Sock {
         this.footLength = footLength;
     }
 
+    /**
+     * Calculates the number of rows needed for the foot, depending on shoe size and yarn thickness (ply)
+     *
+     * @return the number of rows for the foot
+     */
     private int shoeSizeToFootLength(){
         // TODO: find a more accurate shoe size formula
         return 50 + (shoeSize-39) * 5;
     }
 
+    /**
+     * Splits the heel stitches into thirds for a German Short Row heel
+     *
+     * @return finished heel sectioning string
+     */
     private String generateHeelSectioning(){
         int side, middle = 0;
 
@@ -98,6 +111,11 @@ public class Sock {
         gui.updateHeel(heelSectioning);
     }
 
+    /**
+     * Called when the stitch number is changed.
+     * decreaseRounds is the number of rounds to knit until the number of stitches per needle has been halved.
+     * Round down for odd numbers.
+     */
     public void updateToebox(){
         // calculate in two steps to ensure the number of rounds is even
         int decreaseRounds = stitchNr / 8;
