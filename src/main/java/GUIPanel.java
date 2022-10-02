@@ -5,13 +5,15 @@ import java.awt.*;
 
 public class GUIPanel extends CustomPanel{
 
-    private static GUI gui;
-    private static Sock sock;
-
-    public GUIPanel(GUI gui){
+    public GUIPanel(){
         super();
-        GUIPanel.gui = gui;
-        GUIPanel.sock = gui.getSock();
+    }
+
+    public static void addMarginPanel(JPanel jPanel, int width, int height){
+        JPanel panelMargin = new JPanel();
+        panelMargin.setPreferredSize(new Dimension(width, height));
+        panelMargin.setOpaque(false);
+        jPanel.add(panelMargin);
     }
 
     public static class CastOnPanel extends GUIPanel{
@@ -19,8 +21,8 @@ public class GUIPanel extends CustomPanel{
         private JTextField textFieldStitchNr;
         private int stitchNr;
 
-        public CastOnPanel(GUI gui){
-            super(gui);
+        public CastOnPanel(Sock sock){
+            super();
             setHeight(100);
 
             String[] yarnOptions = {"4-ply Sock Yarn", "6-ply Sock Yarn"};
@@ -28,9 +30,7 @@ public class GUIPanel extends CustomPanel{
             comboBoxYarn.setPreferredSize(new Dimension(130,30));
             add(comboBoxYarn);
 
-            JPanel panelMargin = new JPanel();
-            panelMargin.setPreferredSize(new Dimension(10, 30));
-            add(panelMargin);
+            GUIPanel.addMarginPanel(this,10,30);
 
             JLabel labelStitchNr = new JLabel("Number of stitches: ");
             add(labelStitchNr);
@@ -69,8 +69,8 @@ public class GUIPanel extends CustomPanel{
         private JTextField textFieldCuffLength;
         private int cuffLength;
 
-        public CuffPanel(GUI gui){
-            super(gui);
+        public CuffPanel(Sock sock){
+            super();
             setHeight(130);
 
             JLabel labelCuffLength = new JLabel("Cuff length: ");
@@ -104,13 +104,8 @@ public class GUIPanel extends CustomPanel{
             JLabel labelCuffLengthRows = new JLabel("rows");
             add(labelCuffLengthRows);
 
-            JPanel panelMargin = new JPanel();
-            panelMargin.setPreferredSize(new Dimension(150,24));
-            add(panelMargin);
-
-            JPanel panelMargin2 = new JPanel();
-            panelMargin2.setPreferredSize(new Dimension(380, 5));
-            add(panelMargin2);
+            GUIPanel.addMarginPanel(this,150,24);
+            GUIPanel.addMarginPanel(this,380,5);
 
             JLabel labelRibbing = new JLabel("Rib: ");
             add(labelRibbing);
@@ -133,8 +128,8 @@ public class GUIPanel extends CustomPanel{
         private JTextField textFieldLegLength;
         private int legLength;
 
-        public LegPanel(GUI gui){
-            super(gui);
+        public LegPanel(Sock sock){
+            super();
             setHeight(90);
 
             JLabel labelLegLength = new JLabel("Leg length: ");
@@ -175,8 +170,8 @@ public class GUIPanel extends CustomPanel{
 
         private JLabel labelHeelSectioning;
 
-        public HeelPanel(GUI gui){
-            super(gui);
+        public HeelPanel(Sock sock){
+            super();
             setHeight(90);
 
             JLabel labelHeadline = new JLabel("Heel sectioning:");
@@ -199,8 +194,8 @@ public class GUIPanel extends CustomPanel{
         private int shoeSize;
         private int footLength;
 
-        public FootPanel(GUI gui){
-            super(gui);
+        public FootPanel(Sock sock){
+            super();
             setHeight(90);
 
             JLabel labelShoeSize = new JLabel("Shoe size: ");
@@ -211,10 +206,7 @@ public class GUIPanel extends CustomPanel{
             textFieldShoeSize.setPreferredSize(new Dimension(30,24));
             add(textFieldShoeSize);
 
-            JPanel panelMargin = new JPanel();
-            panelMargin.setPreferredSize(new Dimension(30,24));
-            panelMargin.setOpaque(false);
-            add(panelMargin);
+            GUIPanel.addMarginPanel(this,30,24);
 
             JLabel labelFootLength = new JLabel("Foot length: ");
             add(labelFootLength);
@@ -224,7 +216,6 @@ public class GUIPanel extends CustomPanel{
             textFieldFootLength.setPreferredSize(new Dimension(30,24));
             add(textFieldFootLength);
 
-            //TODO: shoe size moved to sock
             textFieldShoeSize.getDocument().addDocumentListener(new DocumentListener() {
                 public void changedUpdate(DocumentEvent e) { update(); }
                 public void insertUpdate(DocumentEvent e) { update(); }
@@ -274,8 +265,8 @@ public class GUIPanel extends CustomPanel{
 
         private JTextField textFieldToebox1;
 
-        public ToeboxPanel(GUI gui){
-            super(gui);
+        public ToeboxPanel(Sock sock){
+            super();
             setHeight(130);
 
             JLabel labelToebox1a = new JLabel("Decrease every other round for");
@@ -286,9 +277,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelToebox1b = new JLabel("total rounds");
             add(labelToebox1b);
 
-            JPanel panelMargin = new JPanel();
-            panelMargin.setPreferredSize(new Dimension(380,5));
-            add(panelMargin);
+            GUIPanel.addMarginPanel(this,380,5);
 
             JLabel labelToebox2a = new JLabel("Decreases every round until");
             add(labelToebox2a);

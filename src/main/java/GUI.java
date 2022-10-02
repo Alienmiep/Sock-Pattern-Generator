@@ -39,12 +39,12 @@ public class GUI {
         frame.add(panelWestBorder, BorderLayout.WEST);
         frame.add(panelEastBorder, BorderLayout.EAST);
 
-        castOnPanel = new GUIPanel.CastOnPanel(this);
-        cuffPanel = new GUIPanel.CuffPanel(this);
-        legPanel = new GUIPanel.LegPanel(this);
-        heelPanel = new GUIPanel.HeelPanel(this);
-        footPanel = new GUIPanel.FootPanel(this);
-        toeboxPanel = new GUIPanel.ToeboxPanel(this);
+        castOnPanel = new GUIPanel.CastOnPanel(GUI.sock);
+        cuffPanel = new GUIPanel.CuffPanel(GUI.sock);
+        legPanel = new GUIPanel.LegPanel(GUI.sock);
+        heelPanel = new GUIPanel.HeelPanel(GUI.sock);
+        footPanel = new GUIPanel.FootPanel(GUI.sock);
+        toeboxPanel = new GUIPanel.ToeboxPanel(GUI.sock);
         panelMain.add(castOnPanel);
         panelMain.add(cuffPanel);
         panelMain.add(legPanel);
@@ -52,17 +52,13 @@ public class GUI {
         panelMain.add(footPanel);
         panelMain.add(toeboxPanel);
 
-        JPanel panelMargin = new JPanel();
-        panelMargin.setPreferredSize(new Dimension(380, 20));
-        panelMain.add(panelMargin);
+        GUIPanel.addMarginPanel(panelMain, 380,20);
 
         JButton buttonPattern = new JButton("Generate Pattern!");
         buttonPattern.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
         panelMain.add(buttonPattern);
 
-        JPanel panelMarginButtons = new JPanel();
-        panelMarginButtons.setPreferredSize(new Dimension(30, 30));
-        panelMain.add(panelMarginButtons);
+        GUIPanel.addMarginPanel(panelMain, 30,30);
 
         JButton buttonSockData = new JButton("Save Sock Data!");
         buttonSockData.addActionListener(e -> { if(patternHandler!=null) patternHandler.saveSock();});
