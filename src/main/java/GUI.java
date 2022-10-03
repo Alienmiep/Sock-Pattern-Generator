@@ -32,10 +32,18 @@ public class GUI {
         frame.setTitle("Sock Pattern Generator 1.0");
         frame.setResizable(false);
 
+        String resourcePath = System.getProperty("user.dir")+"/src/main/resources/";
+        try {
+            Image icon = ImageIO.read(new File(resourcePath + "sockIcon.png"));
+            frame.setIconImage(icon);
+        } catch (IOException e){
+            //
+        }
+
         // load background image
         BasicBackgroundPanel panelBackground = null;
         try {
-            Image background = ImageIO.read(new File(System.getProperty("user.dir")+"/src/main/resources/sock.png"));
+            Image background = ImageIO.read(new File(resourcePath + "sock.png"));
             panelBackground = new BasicBackgroundPanel(background);
             panelBackground.setPreferredSize(new Dimension(500,800));
             frame.add(panelBackground);
