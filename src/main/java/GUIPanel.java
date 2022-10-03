@@ -12,6 +12,7 @@ public class GUIPanel extends CustomPanel{
 
     public GUIPanel(){
         super();
+        setOpaque(false);
     }
 
     /**
@@ -38,7 +39,7 @@ public class GUIPanel extends CustomPanel{
 
         public CastOnPanel(Sock sock){
             super();
-            setHeight(100);
+            setHeight(60);
 
             String[] yarnOptions = {"4-ply Sock Yarn", "6-ply Sock Yarn"};
             JComboBox<String> comboBoxYarn = new JComboBox<>(yarnOptions);
@@ -90,7 +91,7 @@ public class GUIPanel extends CustomPanel{
 
         public CuffPanel(Sock sock){
             super();
-            setHeight(130);
+            setHeight(95);
 
             JLabel labelCuffLength = new JLabel("Cuff length: ");
             add(labelCuffLength);
@@ -153,7 +154,7 @@ public class GUIPanel extends CustomPanel{
 
         public LegPanel(Sock sock){
             super();
-            setHeight(90);
+            setHeight(230);
 
             JLabel labelLegLength = new JLabel("Leg length: ");
             add(labelLegLength);
@@ -199,7 +200,7 @@ public class GUIPanel extends CustomPanel{
 
         public HeelPanel(Sock sock){
             super();
-            setHeight(90);
+            setHeight(50);
 
             JLabel labelHeadline = new JLabel("Heel sectioning:");
             add(labelHeadline);
@@ -228,7 +229,7 @@ public class GUIPanel extends CustomPanel{
 
         public FootPanel(Sock sock){
             super();
-            setHeight(90);
+            setHeight(140);
 
             JLabel labelShoeSize = new JLabel("Shoe size: ");
             add(labelShoeSize);
@@ -304,7 +305,7 @@ public class GUIPanel extends CustomPanel{
 
         public ToeboxPanel(Sock sock){
             super();
-            setHeight(130);
+            setHeight(105);
 
             JLabel labelToebox1a = new JLabel("Decrease every other round for");
             add(labelToebox1a);
@@ -330,3 +331,4 @@ public class GUIPanel extends CustomPanel{
         }
     }
 }
+

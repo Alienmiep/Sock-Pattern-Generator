@@ -1,9 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Class responsible for building the GUI around the 6 GUI panels and managing the buttons at the bottom
@@ -31,17 +30,22 @@ public class GUI {
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Sock Pattern Generator 1.0");
-        frame.setSize(500,800);
         frame.setResizable(false);
 
-        panelMain = new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
+        // load background image
+        BasicBackgroundPanel panelBackground = null;
+        try {
+            Image background = ImageIO.read(new File(System.getProperty("user.dir")+"/src/main/resources/sock.png"));
+            panelBackground = new BasicBackgroundPanel(background);
+            panelBackground.setPreferredSize(new Dimension(500,800));
+            frame.add(panelBackground);
+        } catch (IOException e){
+            //
+        }
 
-        JPanel panelWestBorder = new JPanel();
-        JPanel panelEastBorder = new JPanel();
-        panelEastBorder.setPreferredSize(new Dimension(40,800));
-        panelWestBorder.setPreferredSize(new Dimension(40,800));
-        frame.add(panelWestBorder, BorderLayout.WEST);
-        frame.add(panelEastBorder, BorderLayout.EAST);
+        panelMain = new JPanel();
+        panelMain.setOpaque(false);
+        panelMain.setLayout(new FlowLayout(FlowLayout.CENTER,0,5));
 
         castOnPanel = new GUIPanel.CastOnPanel(GUI.sock);
         cuffPanel = new GUIPanel.CuffPanel(GUI.sock);
@@ -68,7 +72,10 @@ public class GUI {
         buttonSockData.addActionListener(e -> { if(patternHandler!=null) patternHandler.saveSock();});
         panelMain.add(buttonSockData);
 
-        frame.add(panelMain, BorderLayout.CENTER);
+        assert panelBackground != null;
+        panelBackground.add(panelMain, BorderLayout.CENTER);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -89,3 +96,4 @@ public class GUI {
     }
 
 }
+

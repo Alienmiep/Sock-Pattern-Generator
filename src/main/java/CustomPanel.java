@@ -10,7 +10,7 @@ public class CustomPanel extends JPanel {
 
     private int height = 120;
     private int width = 400;
-    private int marginTop = 30;
+    private int marginTop = 10;
     private int marginLeft = 40;
     private int marginRight = 40;
 
