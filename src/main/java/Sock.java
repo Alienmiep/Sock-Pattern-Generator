@@ -7,6 +7,7 @@ public class Sock {
     private int stitchNr, cuffLength, legLength, shoeSize, footLength;
     private String heelSectioning;
     private boolean hasFlatSole;
+    private int ply;
 
     public Sock(){
         // set default sock values
@@ -17,6 +18,7 @@ public class Sock {
         footLength = 66;
         heelSectioning = "10/10/10";
         hasFlatSole = true;
+        ply = 4;
     }
 
     public void setGUI(GUI gui){
@@ -47,6 +49,10 @@ public class Sock {
         return heelSectioning;
     }
 
+    public int getPly() {
+        return ply;
+    }
+
     public void setStitchNr(int stitchNr) {
         this.stitchNr = stitchNr;
         updateHeel();
@@ -70,6 +76,10 @@ public class Sock {
         this.footLength = footLength;
     }
 
+    public void setPly(int ply) {
+        this.ply = ply;
+    }
+
     /**
      * Calculates the number of rows needed for the foot, depending on shoe size and yarn thickness (ply)
      *
@@ -77,7 +87,9 @@ public class Sock {
      */
     int shoeSizeToFootLength(int shoeSize){
         // TODO: find a more accurate shoe size formula
-        return 50 + (shoeSize-39) * 5;
+        int length = 50 + (shoeSize-39) * 5;
+        if(ply == 6) length *= 0.75;
+        return length;
     }
 
     /**

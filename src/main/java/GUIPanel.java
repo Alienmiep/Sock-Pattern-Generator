@@ -45,6 +45,16 @@ public class GUIPanel extends CustomPanel{
             comboBoxYarn.setPreferredSize(new Dimension(130,30));
             add(comboBoxYarn);
 
+            comboBoxYarn.addItemListener(e -> {
+                int ply;
+                switch (comboBoxYarn.getSelectedIndex()) {
+                    case 0 -> ply = 4;
+                    case 1 -> ply = 6;  // TODO: potentially convert stitchNr if ply changed
+                    default -> ply = 4;
+                }
+                sock.setPly(ply);
+            });
+
             GUIPanel.addMarginPanel(this,10,30);
 
             JLabel labelStitchNr = new JLabel("Number of stitches: ");
@@ -62,7 +72,6 @@ public class GUIPanel extends CustomPanel{
                     try {
                         int stitchNr = Integer.parseInt(textFieldStitchNr.getText());
                         if(stitchNr > 0 && stitchNr <= 100){
-                            System.out.println("Boop");
                             sock.setStitchNr(stitchNr);
                         } else {
                             System.out.println("Out of range.");
@@ -105,7 +114,6 @@ public class GUIPanel extends CustomPanel{
                     try {
                         int cuffLength = Integer.parseInt(textFieldCuffLength.getText());
                         if(cuffLength >= 0 && cuffLength <= 200){
-                            System.out.println("Boop");
                             sock.setCuffLength(cuffLength);
                         } else {
                             System.out.println("Out of range.");
@@ -167,7 +175,6 @@ public class GUIPanel extends CustomPanel{
                     try {
                         int input = Integer.parseInt(textFieldLegLength.getText());
                         if(input >= 0 && input <= 200){
-                            System.out.println("Boop");
                             sock.setLegLength(input);
                         } else {
                             System.out.println("Out of range.");
@@ -267,7 +274,6 @@ public class GUIPanel extends CustomPanel{
                     try {
                         int input = Integer.parseInt(textFieldFootLength.getText());
                         if(input > 0 && input < 200){
-                            System.out.println("Boop");
                             sock.setFootLength(input);
                         } else {
                             System.out.println("Out of range.");

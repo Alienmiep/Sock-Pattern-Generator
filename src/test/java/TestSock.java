@@ -8,12 +8,21 @@ public class TestSock {
 
     @Test
     public void testShoeSizeToFootLength() {
+        sock.setPly(4);
         assertEquals(20, sock.shoeSizeToFootLength(33));
         assertEquals(40, sock.shoeSizeToFootLength(37));
         assertEquals(50, sock.shoeSizeToFootLength(39));
         assertEquals(55, sock.shoeSizeToFootLength(40));
         assertEquals(65, sock.shoeSizeToFootLength(42));
         assertEquals(80, sock.shoeSizeToFootLength(45));
+
+        sock.setPly(6);
+        assertEquals(15, sock.shoeSizeToFootLength(33));
+        assertEquals(30, sock.shoeSizeToFootLength(37));
+        assertEquals(37, sock.shoeSizeToFootLength(39));
+        assertEquals(41, sock.shoeSizeToFootLength(40));
+        assertEquals(48, sock.shoeSizeToFootLength(42));
+        assertEquals(60, sock.shoeSizeToFootLength(45));
     }
 
     @Test

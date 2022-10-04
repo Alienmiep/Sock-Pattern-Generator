@@ -54,6 +54,7 @@ public class PatternHandler {
         jsonObject.put("Leg_Length", sock.getLegLength());
         jsonObject.put("Shoe_Size", sock.getShoeSize());
         jsonObject.put("Foot_Length", sock.getFootLength());
+        jsonObject.put("Yarn Ply", sock.getPly());
         // TODO: ask user for any additional notes/yarn name
 
         try {
