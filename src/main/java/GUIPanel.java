@@ -35,7 +35,6 @@ public class GUIPanel extends CustomPanel{
     public static class CastOnPanel extends GUIPanel{
 
         private JTextField textFieldStitchNr;
-        private int stitchNr;
 
         public CastOnPanel(Sock sock){
             super();
@@ -51,8 +50,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelStitchNr = new JLabel("Number of stitches: ");
             add(labelStitchNr);
 
-            stitchNr = sock.getStitchNr();
-            textFieldStitchNr = new JTextField("60");
+            textFieldStitchNr = new JTextField(Integer.toString(sock.getStitchNr()));
             textFieldStitchNr.setPreferredSize(new Dimension(30,24));
             add(textFieldStitchNr);
 
@@ -62,7 +60,7 @@ public class GUIPanel extends CustomPanel{
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
                     try {
-                        stitchNr = Integer.parseInt(textFieldStitchNr.getText());
+                        int stitchNr = Integer.parseInt(textFieldStitchNr.getText());
                         if(stitchNr > 0 && stitchNr <= 100){
                             System.out.println("Boop");
                             sock.setStitchNr(stitchNr);
@@ -87,7 +85,6 @@ public class GUIPanel extends CustomPanel{
     public static class CuffPanel extends GUIPanel{
 
         private JTextField textFieldCuffLength;
-        private int cuffLength;
 
         public CuffPanel(Sock sock){
             super();
@@ -96,8 +93,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelCuffLength = new JLabel("Cuff length: ");
             add(labelCuffLength);
 
-            cuffLength = sock.getCuffLength();
-            textFieldCuffLength = new JTextField("15");
+            textFieldCuffLength = new JTextField(Integer.toString(sock.getCuffLength()));
             textFieldCuffLength.setPreferredSize(new Dimension(25,24));
             add(textFieldCuffLength);
 
@@ -107,7 +103,7 @@ public class GUIPanel extends CustomPanel{
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
                     try {
-                        cuffLength = Integer.parseInt(textFieldCuffLength.getText());
+                        int cuffLength = Integer.parseInt(textFieldCuffLength.getText());
                         if(cuffLength >= 0 && cuffLength <= 200){
                             System.out.println("Boop");
                             sock.setCuffLength(cuffLength);
@@ -127,6 +123,7 @@ public class GUIPanel extends CustomPanel{
             GUIPanel.addMarginPanel(this,150,24);
             GUIPanel.addMarginPanel(this,380,5);
 
+            // TODO: save cuff rib pattern in sock object
             JLabel labelRibbing = new JLabel("Rib: ");
             add(labelRibbing);
             JTextField textFieldRibbingKnit = new JTextField("1");
@@ -150,7 +147,6 @@ public class GUIPanel extends CustomPanel{
     public static class LegPanel extends GUIPanel{
 
         private JTextField textFieldLegLength;
-        private int legLength;
 
         public LegPanel(Sock sock){
             super();
@@ -159,8 +155,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelLegLength = new JLabel("Leg length: ");
             add(labelLegLength);
 
-            legLength = sock.getLegLength();
-            textFieldLegLength = new JTextField("50");
+            textFieldLegLength = new JTextField(Integer.toString(sock.getLegLength()));
             textFieldLegLength.setPreferredSize(new Dimension(30,24));
             add(textFieldLegLength);
 
@@ -173,7 +168,7 @@ public class GUIPanel extends CustomPanel{
                         int input = Integer.parseInt(textFieldLegLength.getText());
                         if(input >= 0 && input <= 200){
                             System.out.println("Boop");
-                            sock.setLegLength(legLength);
+                            sock.setLegLength(input);
                         } else {
                             System.out.println("Out of range.");
                         }
@@ -224,8 +219,6 @@ public class GUIPanel extends CustomPanel{
 
         private JTextField textFieldShoeSize;
         private JTextField textFieldFootLength;
-        private int shoeSize;
-        private int footLength;
 
         public FootPanel(Sock sock){
             super();
@@ -234,8 +227,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelShoeSize = new JLabel("Shoe size: ");
             add(labelShoeSize);
 
-            shoeSize = sock.getShoeSize();
-            textFieldShoeSize = new JTextField("43");
+            textFieldShoeSize = new JTextField(Integer.toString(sock.getShoeSize()));
             textFieldShoeSize.setPreferredSize(new Dimension(30,24));
             add(textFieldShoeSize);
 
@@ -244,8 +236,7 @@ public class GUIPanel extends CustomPanel{
             JLabel labelFootLength = new JLabel("Foot length: ");
             add(labelFootLength);
 
-            footLength = sock.getFootLength();
-            textFieldFootLength = new JTextField("66");
+            textFieldFootLength = new JTextField(Integer.toString(sock.getFootLength()));
             textFieldFootLength.setPreferredSize(new Dimension(30,24));
             add(textFieldFootLength);
 

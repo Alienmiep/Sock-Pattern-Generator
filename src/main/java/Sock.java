@@ -63,7 +63,7 @@ public class Sock {
 
     public void setShoeSize(int shoeSize) {
         this.shoeSize = shoeSize;
-        setFootLength(shoeSizeToFootLength());
+        setFootLength(shoeSizeToFootLength(shoeSize));
     }
 
     public void setFootLength(int footLength) {
@@ -75,7 +75,7 @@ public class Sock {
      *
      * @return the number of rows for the foot
      */
-    private int shoeSizeToFootLength(){
+    int shoeSizeToFootLength(int shoeSize){
         // TODO: find a more accurate shoe size formula
         return 50 + (shoeSize-39) * 5;
     }
@@ -85,8 +85,8 @@ public class Sock {
      *
      * @return finished heel sectioning string
      */
-    private String generateHeelSectioning(){
-        int side, middle = 0;
+     String generateHeelSectioning(){
+        int side, middle;
 
         int heelStitchNr = stitchNr / 2;
         switch (heelStitchNr % 3) {

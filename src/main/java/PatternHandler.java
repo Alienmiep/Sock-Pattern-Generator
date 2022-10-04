@@ -18,6 +18,7 @@ public class PatternHandler {
         currentPath = Path.of(System.getProperty("user.dir"));
     }
 
+    // TODO: either ask user for filename or find a free sock1/2/3/...
     public void generatePattern(){
         Path pathMyPatterns = Path.of(currentPath + "/MyPatterns");
 
