@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.json.simple.JSONObject;
@@ -12,16 +13,15 @@ import org.json.simple.JSONObject;
 public class PatternHandler {
     private static Sock sock;
     private final Path currentPath;
+    private final Path pathMySocks;
+    private final Path pathMyPatterns;
 
     public PatternHandler(Sock sock){
         PatternHandler.sock = sock;
         currentPath = Path.of(System.getProperty("user.dir"));
-    }
 
-    // TODO: either ask user for filename or find a free sock1/2/3/...
-    public void generatePattern(){
-        Path pathMyPatterns = Path.of(currentPath + "/MyPatterns");
-
+        // check if the two necessary directories MySocks and MyPatterns are there
+        pathMyPatterns = Path.of(currentPath + "/MyPatterns");
         if(!Files.exists(pathMyPatterns)){
             try {
                 Files.createDirectory(pathMyPatterns);
@@ -29,14 +29,10 @@ public class PatternHandler {
             catch(IOException e){
                 System.out.println("Unable to create MyPatterns directory.");
                 e.printStackTrace();
-                return;
             }
         }
-    }
 
-    public void saveSock(){
-        Path pathMySocks = Path.of(currentPath + "/MySocks");
-
+        pathMySocks = Path.of(currentPath + "/MySocks");
         if(!Files.exists(pathMySocks)){
             try {
                 Files.createDirectory(pathMySocks);
@@ -44,9 +40,49 @@ public class PatternHandler {
             catch(IOException e){
                 System.out.println("Unable to create MySocks directory.");
                 e.printStackTrace();
-                return;
+            }
+        }  // TODO: handle case that directories can't be created
+    }
+
+    /**
+     * Utility function that finds an available filename in case the user doesn't specify the name
+     *
+     * @param isPattern information whether the filename is for a sock.json or a pattern.txt
+     * @return a filename string without extension
+     */
+    public String findFilename(boolean isPattern){
+        String filename;
+        int i = 0;
+        if(isPattern){
+            while(i < 20){
+                try {
+                    filename = "pattern" + i;
+                    Files.createFile(Path.of(pathMyPatterns + "/"+ filename + ".txt"));
+                    return filename;
+                } catch (IOException e) {
+                    i++;
+                }
+            }
+        } else {
+            while(i < 20){
+                try {
+                    filename = "sock" + i;
+                    Files.createFile(Path.of(pathMySocks + "/"+ filename + ".json"));
+                    return filename;
+                } catch (IOException e) {
+                    i++;
+                }
             }
         }
+        return "default";
+    }
+
+    // TODO: either ask user for filename or find a free sock1/2/3/...
+    public void generatePattern(String filename){
+
+    }
+
+    public void saveSock(String filename){
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Stitch_Nr", sock.getStitchNr());
@@ -58,7 +94,7 @@ public class PatternHandler {
         // TODO: ask user for any additional notes/yarn name
 
         try {
-            FileWriter output = new FileWriter(pathMySocks + "/sock.json");
+            FileWriter output = new FileWriter(pathMySocks + "/" + filename + ".json");
             output.write(jsonObject.toJSONString());
             output.close();
         } catch (IOException e) {

@@ -71,13 +71,16 @@ public class GUI {
         GUIPanel.addMarginPanel(panelMain, 380,20);
 
         JButton buttonPattern = new JButton("Generate Pattern!");
-        buttonPattern.addActionListener(e -> { if(patternHandler!=null) patternHandler.generatePattern();});
+        buttonPattern.addActionListener(e -> {
+            if(patternHandler!=null) patternHandler.generatePattern(patternHandler.findFilename(true));});
         panelMain.add(buttonPattern);
 
         GUIPanel.addMarginPanel(panelMain, 30,30);
 
         JButton buttonSockData = new JButton("Save Sock Data!");
-        buttonSockData.addActionListener(e -> { if(patternHandler!=null) patternHandler.saveSock();});
+        buttonSockData.addActionListener(e -> {
+            if(patternHandler!=null) patternHandler.saveSock(patternHandler.findFilename(false));
+        });
         panelMain.add(buttonSockData);
 
         assert panelBackground != null;

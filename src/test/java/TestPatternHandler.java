@@ -12,16 +12,19 @@ public class TestPatternHandler {
 
     @Test
     public void testSaveSock() {
-        File file = new File(currentPath + "/MySocks/sock.json");
+        String filename = "test";
+        File file = new File(currentPath + "/MySocks/" + filename + ".json");
         if(file.exists()) {
             file.delete();
         }
-        patternHandler.saveSock();
+        patternHandler.saveSock(filename);
 
         assertTrue("Directory MySocks is missing", new File(currentPath + "/MySocks").exists());
 
         assertTrue("File was not created", file.exists());
         assertTrue("File is empty", file.length() > 0);
+
+        file.delete();
     }
 
 }  
