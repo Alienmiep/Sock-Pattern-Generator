@@ -1,3 +1,5 @@
+import org.javatuples.Pair;
+
 /**
  * Stores all sock parameters and methods to generate sock-related info (like the heel sectioning)
  */
@@ -7,7 +9,8 @@ public class Sock {
     private int stitchNr, cuffLength, legLength, shoeSize, footLength;
     private String heelSectioning;
     private boolean hasFlatSole;
-    private int ply;
+    private int ply, decreaseRounds;
+    private Pair<Integer,Integer> heelStitchPair;
 
     public Sock(){
         // set default sock values
@@ -16,9 +19,10 @@ public class Sock {
         legLength = 50;
         shoeSize = 43;
         footLength = 66;
-        heelSectioning = "10/10/10";
+        heelSectioning = generateHeelSectioning();
         hasFlatSole = true;
         ply = 4;
+        decreaseRounds = 14;
     }
 
     public void setGUI(GUI gui){
@@ -51,6 +55,14 @@ public class Sock {
 
     public int getPly() {
         return ply;
+    }
+
+    public int getDecreaseRounds() {
+        return decreaseRounds;
+    }
+
+    public Pair<Integer,Integer> getHeelStitchPair(){
+        return this.heelStitchPair;
     }
 
     public void setStitchNr(int stitchNr) {
@@ -115,6 +127,7 @@ public class Sock {
                 middle = side - 1;
             }
         }
+        heelStitchPair = Pair.with(side, middle);
         return side + " / " + middle + " / " + side;
     }
 
@@ -130,7 +143,7 @@ public class Sock {
      */
     public void updateToebox(){
         // calculate in two steps to ensure the number of rounds is even
-        int decreaseRounds = stitchNr / 8;
+        decreaseRounds = stitchNr / 8;
         decreaseRounds *= 2;
         gui.updateToebox(decreaseRounds);
     }

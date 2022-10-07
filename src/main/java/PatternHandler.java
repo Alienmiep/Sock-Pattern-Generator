@@ -1,6 +1,5 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.json.simple.JSONObject;
@@ -12,13 +11,12 @@ import org.json.simple.JSONObject;
  */
 public class PatternHandler {
     private static Sock sock;
-    private final Path currentPath;
     private final Path pathMySocks;
     private final Path pathMyPatterns;
 
     public PatternHandler(Sock sock){
         PatternHandler.sock = sock;
-        currentPath = Path.of(System.getProperty("user.dir"));
+        Path currentPath = Path.of(System.getProperty("user.dir"));
 
         // check if the two necessary directories MySocks and MyPatterns are there
         pathMyPatterns = Path.of(currentPath + "/MyPatterns");
@@ -77,9 +75,48 @@ public class PatternHandler {
         return "default";
     }
 
-    // TODO: either ask user for filename or find a free sock1/2/3/...
     public void generatePattern(String filename){
+        int side = sock.getHeelStitchPair().getValue0();
+        int middle = sock.getHeelStitchPair().getValue1();
 
+        String pattern = filename.replace("_", " ") + "\n" +
+                "- Cast on " + sock.getStitchNr() + " stitches (using 2 2.5 mm needles)\n" +
+                "- Divide stitches onto 4 2 mm needles\n" +
+                "- " + sock.getCuffLength() + " rounds of 1x1 ribbing\n" +  // TODO: getCuffRib
+                "- Switch to 2.5 mm needles\n" +
+                "- " + sock.getLegLength() + " rounds of stockinette\n" + "\n" +
+                "The heel (German Short Row) is worked in stockinette\n" +
+                "Stitch distribution: " + sock.getHeelSectioning() + "\n" +
+                "- Knit across half of the stitches, combining needles 1 and 4 onto one needle, and turn\n" +
+                "- Slip the first stitch knitwise together with the yarn, " +
+                "pull outwards to create a double stitch, and purl across\n" +
+                "- Repeat until there are " + sock.getHeelSectioning().substring(0,2) +
+                " double stitches on either end (alternating knit and purl rows)\n" +
+                "- Knit over all needles for 2 rounds, working double stitches as k2tog through the back loop\n" +
+                "- Knit across " + (side + middle + 1) + " stitches of the combined heel needle and turn\n" +
+                "- Create a double stitch, purl " + (middle + 1) + " and turn\n" +
+                "- Create a double stitch, work until and over the double stitch (treating it like one stitch), " +
+                "and work one extra stitch\n" +
+                "- Repeat until all the heel needle stitches are \"used up\"\n" + "\n" +
+                "- Divide the heel needles stitches onto 2 needles again\n" +
+                "- " + sock.getLegLength() + " rounds of stockinette\n" + "\n" +
+                "The toebox is worked in stockinette\n" +
+                "- On needles 1 and 3: Knit until the last 3 stitches, k2tog, knit 1\n" +
+                "- On needles 2 and 4: Knit 1, SSK and knit the remaining stitches\n" +
+                "- Alternate these decrease rounds with plain knit rounds for a total of " + sock.getDecreaseRounds() +
+                " rounds (until the stitch number is halved)\n" +
+                "- Decrease every round until 4 stitches per needle remain\n" + "\n" +
+                "Kitchener stitch preparation: purl keep, knit keep\n" +
+                "Kitchener stitch repeat: knit slip, purl keep / purl slip, knit keep";
+
+        try {
+            FileWriter output = new FileWriter(pathMyPatterns + "/" + filename + ".txt");
+            output.write(pattern);
+            output.close();
+        } catch (IOException e) {
+            System.out.println("Unable to create textfile.");
+            e.printStackTrace();
+        }
     }
 
     public void saveSock(String filename){
