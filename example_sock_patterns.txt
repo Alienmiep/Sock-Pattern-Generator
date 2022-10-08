@@ -1,0 +1,29 @@
+Example Plain Sock 
+- Cast on 60 stitches (using 2 2.5 mm needles) 
+- Divide stitches onto 4 2 mm needles
+- 15 rounds of 1x1 ribbing
+- Switch to 2.5 mm needles
+- 60 rounds of stockinette
+
+The heel (German Short Row) is worked in stockinette 
+Stitch distribution: 10/10/10
+- Knit across half of the stitches, combining needles 1 and 4 onto one needle, and turn
+- Slip the first stitch knitwise together with the yarn and pull outwards to create a double stitch, purl across
+- Repeat until there are 10 double stitches on either end (alternating knit and purl rows)
+- Knit over all needles for 2 rounds, working double stitches as k2tog through the back loop
+- Knit across 21 stitches of the combined heel needle and turn
+- Create a double stitch, purl 11 and turn 
+- Create a double stitch, work until and over the double stitch (treating it like one stitch), and work one extra stitch
+- Repeat until all the heel needle stitches are "used up"
+
+- Divide the heel needles stitches onto 2 needles again
+- 66 rounds of stockinette
+
+The toebox is worked in stockinette
+- On needles 1 and 3: Knit until the last 3 stitches, k2tog, knit 1
+- On needles 2 and 4: Knit 1, SSK and knit the remaining stitches
+- Alternate these decrease rounds with plain knit rounds for a total of 14 rounds (until the stitch number is halved)
+- Decrease every round until 4 stitches per needle remain
+
+Kitchener stitch preparation: purl keep, knit keep
+Kitchener stitch repeat: knit slip, purl keep / purl slip, knit keep

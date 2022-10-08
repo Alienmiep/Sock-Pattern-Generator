@@ -16,20 +16,6 @@ public class GUIPanel extends CustomPanel{
     }
 
     /**
-     * Utility function that adds an invisible panel to space out GUI components
-     *
-     * @param jPanel the panel to add the space to
-     * @param width desired panel width
-     * @param height desired panel height
-     */
-    public static void addMarginPanel(JPanel jPanel, int width, int height){
-        JPanel panelMargin = new JPanel();
-        panelMargin.setPreferredSize(new Dimension(width, height));
-        panelMargin.setOpaque(false);
-        jPanel.add(panelMargin);
-    }
-
-    /**
      * Panel that contains the yarn thickness (ply) and number of stitches to cast on
      */
     public static class CastOnPanel extends GUIPanel{

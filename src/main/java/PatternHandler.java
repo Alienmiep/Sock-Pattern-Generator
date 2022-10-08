@@ -56,6 +56,7 @@ public class PatternHandler {
                 try {
                     filename = "pattern" + i;
                     Files.createFile(Path.of(pathMyPatterns + "/"+ filename + ".txt"));
+                    Files.delete(Path.of(pathMyPatterns + "/"+ filename + ".txt"));
                     return filename;
                 } catch (IOException e) {
                     i++;
@@ -66,6 +67,7 @@ public class PatternHandler {
                 try {
                     filename = "sock" + i;
                     Files.createFile(Path.of(pathMySocks + "/"+ filename + ".json"));
+                    Files.delete(Path.of(pathMySocks + "/"+ filename + ".json"));
                     return filename;
                 } catch (IOException e) {
                     i++;

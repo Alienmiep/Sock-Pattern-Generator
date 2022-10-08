@@ -72,19 +72,17 @@ public class GUI {
 
         JButton buttonPattern = new JButton("Generate Pattern!");
         buttonPattern.addActionListener(e -> {
-            if(patternHandler!=null) patternHandler.generatePattern(patternHandler.findFilename(true));});
+            if(patternHandler!=null) new SaveDialog(frame, true, patternHandler); });
         panelMain.add(buttonPattern);
 
         GUIPanel.addMarginPanel(panelMain, 30,30);
 
         JButton buttonSockData = new JButton("Save Sock Data!");
         buttonSockData.addActionListener(e -> {
-            if(patternHandler!=null) patternHandler.saveSock(patternHandler.findFilename(false));
-        });
+            if(patternHandler!=null) new SaveDialog(frame, false, patternHandler); });
         panelMain.add(buttonSockData);
 
-        assert panelBackground != null;
-        panelBackground.add(panelMain, BorderLayout.CENTER);
+        if(panelBackground != null) panelBackground.add(panelMain, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -92,10 +90,6 @@ public class GUI {
 
     public void setPatternHandler(PatternHandler handler){
         this.patternHandler = handler;
-    }
-
-    public Sock getSock(){
-        return sock;
     }
 
     public void updateHeel(String heelSectioning){
