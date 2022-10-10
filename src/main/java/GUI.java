@@ -23,12 +23,12 @@ public class GUI {
     private GUIPanel.FootPanel footPanel;
     private GUIPanel.ToeboxPanel toeboxPanel;
 
-    public GUI(Sock sock){
-        GUI.sock = sock;
+    public GUI(Sock s){
+        sock = s;
 
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Sock Pattern Generator 1.0");
         frame.setResizable(false);
 
@@ -60,7 +60,7 @@ public class GUI {
         legPanel = new GUIPanel.LegPanel(GUI.sock);
         heelPanel = new GUIPanel.HeelPanel(GUI.sock);
         footPanel = new GUIPanel.FootPanel(GUI.sock);
-        toeboxPanel = new GUIPanel.ToeboxPanel(GUI.sock);
+        toeboxPanel = new GUIPanel.ToeboxPanel();
         panelMain.add(castOnPanel);
         panelMain.add(cuffPanel);
         panelMain.add(legPanel);
@@ -68,16 +68,16 @@ public class GUI {
         panelMain.add(footPanel);
         panelMain.add(toeboxPanel);
 
-        GUIPanel.addMarginPanel(panelMain, 380,20);
+        CustomPanel.addMarginPanel(panelMain, 380,20);
 
-        JButton buttonPattern = new JButton("Generate Pattern!");
+        var buttonPattern = new JButton("Generate Pattern!");
         buttonPattern.addActionListener(e -> {
             if(patternHandler!=null) new SaveDialog(frame, true, patternHandler); });
         panelMain.add(buttonPattern);
 
-        GUIPanel.addMarginPanel(panelMain, 30,30);
+        CustomPanel.addMarginPanel(panelMain, 30,30);
 
-        JButton buttonSockData = new JButton("Save Sock Data!");
+        var buttonSockData = new JButton("Save Sock Data!");
         buttonSockData.addActionListener(e -> {
             if(patternHandler!=null) new SaveDialog(frame, false, patternHandler); });
         panelMain.add(buttonSockData);

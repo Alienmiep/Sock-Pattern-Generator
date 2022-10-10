@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BasicBackgroundPanel extends JPanel {
-    private Image customBackground;
+    private transient Image customBackground;
 
     public BasicBackgroundPanel(Image background) {
         this.customBackground = background;

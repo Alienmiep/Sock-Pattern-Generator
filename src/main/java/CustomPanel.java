@@ -42,7 +42,7 @@ public class CustomPanel extends JPanel {
      * @param height desired panel height
      */
     public static void addMarginPanel(JPanel jPanel, int width, int height){
-        JPanel panelMargin = new JPanel();
+        var panelMargin = new JPanel();
         panelMargin.setPreferredSize(new Dimension(width, height));
         panelMargin.setOpaque(false);
         jPanel.add(panelMargin);
@@ -69,6 +69,7 @@ public class CustomPanel extends JPanel {
         add(panelCenter, BorderLayout.CENTER);
     }
 
+    @Override
     public Component add(Component c){
         panelCenter.add(c);
         return this;
