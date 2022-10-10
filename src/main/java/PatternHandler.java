@@ -10,12 +10,14 @@ import org.json.simple.JSONObject;
  * b) the sock parameters and eventual notes as a JSON file (for storing past sock projects)
  */
 public class PatternHandler {
-    private static Sock sock;
+    private Sock sock;
     private final Path pathMySocks;
     private final Path pathMyPatterns;
 
-    public PatternHandler(Sock sock){
-        PatternHandler.sock = sock;
+    private final static String JSON = ".json";
+
+    public PatternHandler(Sock s){
+        sock = s;
         Path currentPath = Path.of(System.getProperty("user.dir"));
 
         // check if the two necessary directories MySocks and MyPatterns are there
@@ -64,8 +66,8 @@ public class PatternHandler {
             while(i < 20){
                 try {
                     filename = "sock" + i;
-                    Files.createFile(Path.of(pathMySocks + "/"+ filename + ".json"));
-                    Files.delete(Path.of(pathMySocks + "/"+ filename + ".json"));
+                    Files.createFile(Path.of(pathMySocks + "/"+ filename + JSON));
+                    Files.delete(Path.of(pathMySocks + "/"+ filename + JSON));
                     return filename;
                 } catch (IOException e) {
                     i++;
@@ -127,7 +129,7 @@ public class PatternHandler {
         jsonObject.put("Yarn Ply", sock.getPly());
         // TODO: ask user for any additional notes/yarn name
 
-        try (FileWriter output = new FileWriter(pathMySocks + "/" + filename + ".json")){
+        try (FileWriter output = new FileWriter(pathMySocks + "/" + filename + JSON)){
             output.write(jsonObject.toJSONString());
         } catch (IOException e) {
             System.out.println("Unable to create JSON file.");

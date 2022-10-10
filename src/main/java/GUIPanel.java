@@ -9,6 +9,7 @@ import java.awt.*;
  * Inputs are checked for format and range here too
  */
 public class GUIPanel extends CustomPanel{
+    private final static String ROUNDS = "rounds";
 
     public GUIPanel(){
         super();
@@ -111,7 +112,7 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            var labelCuffLengthRounds = new JLabel("rounds");
+            var labelCuffLengthRounds = new JLabel(ROUNDS);
             add(labelCuffLengthRounds);
 
             CustomPanel.addMarginPanel(this,150,24);
@@ -172,7 +173,7 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            var labelLegLengthRounds = new JLabel("rounds");
+            var labelLegLengthRounds = new JLabel(ROUNDS);
             add(labelLegLengthRounds);
         }
 
@@ -271,7 +272,7 @@ public class GUIPanel extends CustomPanel{
                 }
             });
 
-            var labelFootLengthRounds = new JLabel("rounds");
+            var labelFootLengthRounds = new JLabel(ROUNDS);
             add(labelFootLengthRounds);
         }
 

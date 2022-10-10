@@ -5,10 +5,10 @@ import org.javatuples.Pair;
  */
 public class Sock {
 
-    private static GUI gui;
+    private GUI gui;
     private int stitchNr, cuffLength, legLength, shoeSize, footLength;
     private String heelSectioning;
-    private boolean hasFlatSole;
+    // private boolean hasFlatSole;
     private int ply, decreaseRounds;
     private Pair<Integer,Integer> heelStitchPair;
 
@@ -20,13 +20,13 @@ public class Sock {
         shoeSize = 43;
         footLength = 66;
         heelSectioning = generateHeelSectioning();
-        hasFlatSole = true;
+        // hasFlatSole = true;
         ply = 4;
         decreaseRounds = 14;
     }
 
-    public void setGUI(GUI gui){
-        Sock.gui = gui;
+    public void setGUI(GUI g){
+        gui = g;
     }
 
     public int getStitchNr() {
