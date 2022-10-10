@@ -26,7 +26,6 @@ public class PatternHandler {
             }
             catch(IOException e){
                 System.out.println("Unable to create MyPatterns directory.");
-                e.printStackTrace();
             }
         }
 
@@ -37,7 +36,6 @@ public class PatternHandler {
             }
             catch(IOException e){
                 System.out.println("Unable to create MySocks directory.");
-                e.printStackTrace();
             }
         }  // TODO: handle case that directories can't be created
     }
@@ -111,13 +109,10 @@ public class PatternHandler {
                 "Kitchener stitch preparation: purl keep, knit keep\n" +
                 "Kitchener stitch repeat: knit slip, purl keep / purl slip, knit keep";
 
-        try {
-            FileWriter output = new FileWriter(pathMyPatterns + "/" + filename + ".txt");
+        try (FileWriter output = new FileWriter(pathMyPatterns + "/" + filename + ".txt")) {
             output.write(pattern);
-            output.close();
         } catch (IOException e) {
             System.out.println("Unable to create textfile.");
-            e.printStackTrace();
         }
     }
 
@@ -132,13 +127,10 @@ public class PatternHandler {
         jsonObject.put("Yarn Ply", sock.getPly());
         // TODO: ask user for any additional notes/yarn name
 
-        try {
-            FileWriter output = new FileWriter(pathMySocks + "/" + filename + ".json");
+        try (FileWriter output = new FileWriter(pathMySocks + "/" + filename + ".json")){
             output.write(jsonObject.toJSONString());
-            output.close();
         } catch (IOException e) {
             System.out.println("Unable to create JSON file.");
-            e.printStackTrace();
         }
 
     }

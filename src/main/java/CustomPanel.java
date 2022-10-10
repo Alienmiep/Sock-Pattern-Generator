@@ -8,8 +8,8 @@ public class CustomPanel extends JPanel {
     private JPanel panelMarginLeft;
     private JPanel panelMarginRight;
 
-    private int height = 120;
-    private int width = 400;
+    private int customHeight = 120;
+    private int customWidth = 400;
     private int marginTop = 10;
     private int marginLeft = 40;
     private int marginRight = 40;
@@ -17,7 +17,7 @@ public class CustomPanel extends JPanel {
     public CustomPanel(){
         super();
         setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(customWidth, customHeight));
         setLayout(new BorderLayout());
 
         addSubPanels();
@@ -26,9 +26,9 @@ public class CustomPanel extends JPanel {
     public CustomPanel(int customWidth, int customHeight){
         super();
         setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
-        this.width = customWidth;
-        this.height = customHeight;
-        setPreferredSize(new Dimension(width, height));
+        this.customWidth = customWidth;
+        this.customHeight = customHeight;
+        setPreferredSize(new Dimension(customWidth, customHeight));
         setLayout(new BorderLayout());
 
         addSubPanels();
@@ -50,17 +50,17 @@ public class CustomPanel extends JPanel {
 
     private void addSubPanels(){
         panelMarginTop = new JPanel();
-        panelMarginTop.setPreferredSize(new Dimension(width-10, marginTop));
+        panelMarginTop.setPreferredSize(new Dimension(customWidth-10, marginTop));
         panelMarginTop.setOpaque(false);
         add(panelMarginTop, BorderLayout.NORTH);
 
         panelMarginLeft = new JPanel();
-        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, height));
+        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, customHeight));
         panelMarginLeft.setOpaque(false);
         add(panelMarginLeft, BorderLayout.WEST);
 
         panelMarginRight = new JPanel();
-        panelMarginRight.setPreferredSize(new Dimension(marginRight, height));
+        panelMarginRight.setPreferredSize(new Dimension(marginRight, customHeight));
         panelMarginRight.setOpaque(false);
         add(panelMarginRight, BorderLayout.EAST);
 
@@ -75,21 +75,21 @@ public class CustomPanel extends JPanel {
     }
 
     public void setHeight(int newHeight){
-        setPreferredSize(new Dimension(width, newHeight));
+        setPreferredSize(new Dimension(customWidth, newHeight));
     }
 
     public void setMarginTop(int marginTop){
         this.marginTop = marginTop;
-        panelMarginTop.setPreferredSize(new Dimension(width-10, marginTop));
+        panelMarginTop.setPreferredSize(new Dimension(customWidth-10, marginTop));
     }
 
     public void setMarginLeft(int marginLeft) {
         this.marginLeft = marginLeft;
-        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, height));
+        panelMarginLeft.setPreferredSize(new Dimension(marginLeft, customHeight));
     }
 
     public void setMarginRight(int marginRight) {
         this.marginRight = marginRight;
-        panelMarginRight.setPreferredSize(new Dimension(marginRight, height));
+        panelMarginRight.setPreferredSize(new Dimension(marginRight, customHeight));
     }
 }

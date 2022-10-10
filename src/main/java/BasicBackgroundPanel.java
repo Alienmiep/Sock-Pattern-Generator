@@ -2,17 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BasicBackgroundPanel extends JPanel {
-    private Image background;
+    private Image customBackground;
 
     public BasicBackgroundPanel(Image background) {
-        this.background = background;
+        this.customBackground = background;
         setLayout(new BorderLayout());
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics g2 = g.create();
-        g2.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+        g2.drawImage(customBackground, 0, 0, getWidth(), getHeight(), null);
         g2.dispose();
     }
 }
