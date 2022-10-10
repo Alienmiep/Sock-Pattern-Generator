@@ -14,7 +14,7 @@ public class PatternHandler {
     private final Path pathMySocks;
     private final Path pathMyPatterns;
 
-    private final static String JSON = ".json";
+    private static final String JSON = ".json";
 
     public PatternHandler(Sock s){
         sock = s;
@@ -111,7 +111,7 @@ public class PatternHandler {
                 "Kitchener stitch preparation: purl keep, knit keep\n" +
                 "Kitchener stitch repeat: knit slip, purl keep / purl slip, knit keep";
 
-        try (FileWriter output = new FileWriter(pathMyPatterns + "/" + filename + ".txt")) {
+        try (var output = new FileWriter(pathMyPatterns + "/" + filename + ".txt")) {
             output.write(pattern);
         } catch (IOException e) {
             System.out.println("Unable to create textfile.");
@@ -129,7 +129,7 @@ public class PatternHandler {
         jsonObject.put("Yarn Ply", sock.getPly());
         // TODO: ask user for any additional notes/yarn name
 
-        try (FileWriter output = new FileWriter(pathMySocks + "/" + filename + JSON)){
+        try (var output = new FileWriter(pathMySocks + "/" + filename + JSON)){
             output.write(jsonObject.toJSONString());
         } catch (IOException e) {
             System.out.println("Unable to create JSON file.");

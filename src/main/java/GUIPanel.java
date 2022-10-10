@@ -9,7 +9,7 @@ import java.awt.*;
  * Inputs are checked for format and range here too
  */
 public class GUIPanel extends CustomPanel{
-    private final static String ROUNDS = "rounds";
+    private static final String ROUNDS = "rounds";
 
     public GUIPanel(){
         super();
