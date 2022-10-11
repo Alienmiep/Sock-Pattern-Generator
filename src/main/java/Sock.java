@@ -6,9 +6,15 @@ import org.javatuples.Pair;
 public class Sock {
 
     private GUI gui;
-    private int stitchNr, cuffLength, legLength, shoeSize, footLength;
+    private int stitchNr;
+    private int cuffLength;
+    private int legLength;
+    private int shoeSize;
+    private int footLength;
+
     private String heelSectioning;
-    private int ply, decreaseRounds;
+    private int ply;
+    private int decreaseRounds;
     private Pair<Integer,Integer> heelStitchPair;
 
     public Sock(){
@@ -108,7 +114,8 @@ public class Sock {
      * @return finished heel sectioning string
      */
      String generateHeelSectioning(){
-        int side, middle;
+        int side;
+        int middle;
 
         int heelStitchNr = stitchNr / 2;
         switch (heelStitchNr % 3) {

@@ -22,7 +22,7 @@ public class PatternHandler {
 
     public PatternHandler(Sock s){
         sock = s;
-        Path currentPath = Path.of(System.getProperty("user.dir"));
+        var currentPath = Path.of(System.getProperty("user.dir"));
 
         // check if the two necessary directories MySocks and MyPatterns are there
         pathMyPatterns = Path.of(currentPath + "/MyPatterns");
@@ -54,7 +54,7 @@ public class PatternHandler {
      */
     public String findFilename(boolean isPattern){
         String filename;
-        int i = 0;
+        var i = 0;
         if(isPattern){
             while(i < 20){
                 try {
@@ -124,7 +124,7 @@ public class PatternHandler {
 
     public void saveSock(String filename){
 
-        JSONObject jsonObject = new JSONObject();
+        var jsonObject = new JSONObject();
         jsonObject.put("Stitch_Nr", sock.getStitchNr());
         jsonObject.put("Cuff_Length", sock.getCuffLength());
         jsonObject.put("Leg_Length", sock.getLegLength());
