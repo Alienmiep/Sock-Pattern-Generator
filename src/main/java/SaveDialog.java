@@ -9,12 +9,12 @@ public class SaveDialog extends JDialog {
         String ending;
         String recommendedFilename = patternHandler.findFilename(isPattern);
 
-        JLabel label = new JLabel("Filename: ");
-        JTextField textField = new JTextField(recommendedFilename);
+        var label = new JLabel("Filename: ");
+        var textField = new JTextField(recommendedFilename);
         textField.setColumns(15);
-        JButton buttonSave = new JButton("Save");
+        var buttonSave = new JButton("Save");
 
-        if(isPattern) {
+        if(Boolean.TRUE.equals(isPattern)) {
             ending = ".txt";
             buttonSave.addActionListener(e ->  {
                 patternHandler.generatePattern(textField.getText());
@@ -29,11 +29,11 @@ public class SaveDialog extends JDialog {
             });
         }
 
-        CustomPanel panelDialog = new CustomPanel();
+        var panelDialog = new CustomPanel();
         panelDialog.setMarginRight(20);
         panelDialog.setMarginLeft(20);
 
-        JLabel labelEnding = new JLabel(ending);
+        var labelEnding = new JLabel(ending);
         panelDialog.add(label);
 
         CustomPanel.addMarginPanel(panelDialog,80,30);

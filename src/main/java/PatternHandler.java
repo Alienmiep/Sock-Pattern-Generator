@@ -2,6 +2,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import org.json.simple.JSONObject;
 
 /**
@@ -13,6 +15,8 @@ public class PatternHandler {
     private Sock sock;
     private final Path pathMySocks;
     private final Path pathMyPatterns;
+
+    private static final Logger LOGGER = Logger.getLogger("MyLogger");
 
     private static final String JSON = ".json";
 
@@ -27,7 +31,7 @@ public class PatternHandler {
                 Files.createDirectory(pathMyPatterns);
             }
             catch(IOException e){
-                System.out.println("Unable to create MyPatterns directory.");
+                LOGGER.warning("Unable to create MyPatterns directory.");
             }
         }
 
@@ -37,7 +41,7 @@ public class PatternHandler {
                 Files.createDirectory(pathMySocks);
             }
             catch(IOException e){
-                System.out.println("Unable to create MySocks directory.");
+                LOGGER.warning("Unable to create MySocks directory.");
             }
         }  // TODO: handle case that directories can't be created
     }
@@ -114,7 +118,7 @@ public class PatternHandler {
         try (var output = new FileWriter(pathMyPatterns + "/" + filename + ".txt")) {
             output.write(pattern);
         } catch (IOException e) {
-            System.out.println("Unable to create textfile.");
+            LOGGER.warning("Unable to create textfile.");
         }
     }
 
@@ -132,7 +136,7 @@ public class PatternHandler {
         try (var output = new FileWriter(pathMySocks + "/" + filename + JSON)){
             output.write(jsonObject.toJSONString());
         } catch (IOException e) {
-            System.out.println("Unable to create JSON file.");
+            LOGGER.warning("Unable to create JSON file.");
         }
 
     }

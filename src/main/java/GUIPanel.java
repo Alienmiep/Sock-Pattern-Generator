@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.logging.Logger;
 
 /**
  * Utility class that houses the individual GUI panels (to not clutter up the GUI class)
@@ -10,6 +11,10 @@ import java.awt.*;
  */
 public class GUIPanel extends CustomPanel{
     private static final String ROUNDS = "rounds";
+    private static final String OUT_OF_RANGE = "Value out of range.";
+    private static final String NOT_AN_INTEGER = "Value is not an Integer.";
+
+    private static final Logger LOGGER = Logger.getLogger("MyLogger");
 
     public GUIPanel(){
         super();
@@ -61,11 +66,11 @@ public class GUIPanel extends CustomPanel{
                         if(stitchNr > 0 && stitchNr <= 100){
                             sock.setStitchNr(stitchNr);
                         } else {
-                            System.out.println("Out of range.");
+                            LOGGER.warning(OUT_OF_RANGE);
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("Not an Integer.");
+                        LOGGER.warning(NOT_AN_INTEGER);
                     }
                 }
             });
@@ -103,11 +108,11 @@ public class GUIPanel extends CustomPanel{
                         if(cuffLength >= 0 && cuffLength <= 200){
                             sock.setCuffLength(cuffLength);
                         } else {
-                            System.out.println("Out of range.");
+                            LOGGER.warning(OUT_OF_RANGE);
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("Not an Integer.");
+                        LOGGER.warning(NOT_AN_INTEGER);
                     }
                 }
             });
@@ -164,11 +169,11 @@ public class GUIPanel extends CustomPanel{
                         if(input >= 0 && input <= 200){
                             sock.setLegLength(input);
                         } else {
-                            System.out.println("Out of range.");
+                            LOGGER.warning(OUT_OF_RANGE);
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("Not an Integer.");
+                        LOGGER.warning(NOT_AN_INTEGER);
                     }
                 }
             });
@@ -245,11 +250,11 @@ public class GUIPanel extends CustomPanel{
                             sock.setShoeSize(length);
                             textFieldFootLength.setText(Integer.toString(sock.getFootLength()));
                         } else {
-                            System.out.println("Out of range.");
+                            LOGGER.warning(OUT_OF_RANGE);
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("Not an Integer.");
+                        LOGGER.warning(NOT_AN_INTEGER);
                     }
                 }
             });
@@ -263,11 +268,11 @@ public class GUIPanel extends CustomPanel{
                         if(input > 0 && input < 200){
                             sock.setFootLength(input);
                         } else {
-                            System.out.println("Out of range.");
+                            LOGGER.warning(OUT_OF_RANGE);
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("Not an Integer.");
+                        LOGGER.warning(NOT_AN_INTEGER);
                     }
                 }
             });
