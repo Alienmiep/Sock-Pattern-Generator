@@ -1,8 +1,10 @@
-import static org.junit.Assert.*;
+package sockpatterngenerator;
 
 import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestPatternHandler {
 

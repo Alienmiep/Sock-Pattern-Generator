@@ -1,3 +1,5 @@
+package sockpatterngenerator;
+
 import org.javatuples.Pair;
 
 /**
