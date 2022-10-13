@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
  * b) the sock parameters and eventual notes as a JSON file (for storing past sock projects)
  */
 public class PatternHandler {
-    private Sock sock;
+    private final Sock sock;
     private final Path pathMySocks;
     private final Path pathMyPatterns;
 

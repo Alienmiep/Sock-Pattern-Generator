@@ -98,6 +98,10 @@ public class Sock {
         this.ply = ply;
     }
 
+    public void setHeelStitchPair(Pair<Integer, Integer> pair) {
+        this.heelStitchPair = pair;
+    }
+
     /**
      * Calculates the number of rows needed for the foot, depending on shoe size and yarn thickness (ply)
      *
@@ -134,7 +138,7 @@ public class Sock {
                 middle = side - 1;
             }
         }
-        heelStitchPair = Pair.with(side, middle);
+        setHeelStitchPair(Pair.with(side, middle));
         return side + " / " + middle + " / " + side;
     }
 

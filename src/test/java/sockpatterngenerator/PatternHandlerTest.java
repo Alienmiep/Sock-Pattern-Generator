@@ -6,7 +6,7 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestPatternHandler {
+public class PatternHandlerTest {
 
     Sock sock = new Sock();
     PatternHandler patternHandler = new PatternHandler(sock);
