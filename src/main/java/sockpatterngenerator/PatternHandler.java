@@ -15,8 +15,8 @@ import org.json.simple.JSONObject;
  */
 public class PatternHandler {
     private final Sock sock;
-    private final Path pathMySocks;
-    private final Path pathMyPatterns;
+    private Path pathMySocks;
+    private Path pathMyPatterns;
 
     private static final Logger LOGGER = Logger.getLogger("MyLogger");
 
@@ -141,5 +141,37 @@ public class PatternHandler {
             LOGGER.warning("Unable to create JSON file.");
         }
 
+    }
+
+    public Path getPathMySocks(){
+        return pathMySocks;
+    }
+
+    public Path getPathMyPatterns(){
+        return pathMyPatterns;
+    }
+
+    public void setPathMySocks(Path newPath){
+        pathMySocks = newPath;
+        if(!Files.exists(pathMySocks)){
+            try {
+                Files.createDirectory(pathMySocks);
+            }
+            catch(IOException e){
+                LOGGER.warning("Unable to create MySocks directory.");
+            }
+        }
+    }
+
+    public void setPathMyPatterns(Path newPath){
+        pathMyPatterns = newPath;
+        if(!Files.exists(pathMyPatterns)){
+            try {
+                Files.createDirectory(pathMyPatterns);
+            }
+            catch(IOException e){
+                LOGGER.warning("Unable to create MyPatterns directory.");
+            }
+        }
     }
 }
