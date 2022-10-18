@@ -25,16 +25,54 @@ public class PatternHandlerTest {
     }
 
     @Test
-    public void testSetPathMySocks(){
+    public void testSetPath(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
+        patternHandler.setPathMyPatterns(newPath);
+        assertEquals(newPath, patternHandler.getPathMyPatterns());
+        assertTrue(Files.exists(newPath));
+
         patternHandler.setPathMyPatterns(newPath);
         assertEquals(newPath, patternHandler.getPathMyPatterns());
         assertTrue(Files.exists(newPath));
     }
 
     @Test
-    public void testSetPathMyPatterns(){
+    public void testSetPathMySocksNoDirectory(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
+        try {
+            Files.deleteIfExists(newPath);
+        } catch (IOException ignored){}
+
+        patternHandler.setPathMySocks(newPath);
+        assertEquals(newPath, patternHandler.getPathMySocks());
+        assertTrue(Files.exists(newPath));
+    }
+
+    @Test
+    public void testSetPathMyPatternsNoDirectory(){
+        Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
+        try {
+            Files.deleteIfExists(newPath);
+        } catch (IOException ignored){}
+
+        patternHandler.setPathMyPatterns(newPath);
+        assertEquals(newPath, patternHandler.getPathMyPatterns());
+        assertTrue(Files.exists(newPath));
+    }
+
+    @Test
+    public void testSetPathDirectoryAlreadyExists(){
+        Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
+        try {
+            Files.createDirectory(newPath);
+        } catch (IOException e){
+            System.out.println("Unable to create Test directory");
+        }
+
+        patternHandler.setPathMySocks(newPath);
+        assertEquals(newPath, patternHandler.getPathMySocks());
+        assertTrue(Files.exists(newPath));
+
         patternHandler.setPathMyPatterns(newPath);
         assertEquals(newPath, patternHandler.getPathMyPatterns());
         assertTrue(Files.exists(newPath));
