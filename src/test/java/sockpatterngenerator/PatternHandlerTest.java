@@ -13,7 +13,7 @@ public class PatternHandlerTest {
 
     static Sock sock = new Sock();
     static PatternHandler patternHandler = new PatternHandler(sock);
-    static Path pathTestDirectory = Path.of(System.getProperty("user.dir") + "/TestDirectory");;
+    static Path pathTestDirectory = Path.of(System.getProperty("user.dir") + "/TestDirectory");
 
     private static void clearDirectory(Path path){
         if(Files.isDirectory(path)){
