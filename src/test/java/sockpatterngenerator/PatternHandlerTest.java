@@ -1,5 +1,6 @@
 package sockpatterngenerator;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class PatternHandlerTest {
     static PatternHandler patternHandler = new PatternHandler(sock);
     static Path pathTestDirectory = Path.of(System.getProperty("user.dir") + "/TestDirectory");;
 
-    private void clearDirectory(Path path){
+    private static void clearDirectory(Path path){
         if(Files.isDirectory(path)){
             try(var stream = Files.newDirectoryStream(path)){
                 for(var s: stream){
@@ -148,7 +149,28 @@ public class PatternHandlerTest {
 
         assertTrue("File was not created", Files.exists(path));
 
-        //file.delete();
     }
 
+    @Test
+    public void testGeneratePattern(){
+        patternHandler.setPathMyPatterns(pathTestDirectory);
+        String filename = "test";
+        Path path = Path.of(pathTestDirectory + "/" + filename + ".txt");
+
+        patternHandler.generatePattern("test");
+        assertTrue("File was not created", Files.exists(path));
+        //TODO: read in file and check the contents
+    }
+
+
+    @AfterClass
+    public static void cleanup(){
+        try {
+            clearDirectory(pathTestDirectory);
+            Files.deleteIfExists(pathTestDirectory);
+            Files.deleteIfExists(Path.of(System.getProperty("user.dir") + "/Test"));
+        } catch (IOException e){
+            System.out.println(pathTestDirectory);
+        }
+    }
 }  
