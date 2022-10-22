@@ -1,96 +1,96 @@
 package sockpatterngenerator;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.javatuples.Pair;
-import org.junit.Test;
 
-public class SockTest {
+class SockTest {
 
     Sock sock = new Sock();
 
 
 
     @Test
-    public void testSockDefaultValues(){
+    void testSockDefaultValues(){
         Sock testSock = new Sock();
-        assertEquals(60, testSock.getStitchNr());
-        assertEquals(15, testSock.getCuffLength());
-        assertEquals(50, testSock.getLegLength());
-        assertEquals(43, testSock.getShoeSize());
-        assertEquals(66, testSock.getFootLength());
-        assertEquals("10 / 10 / 10", testSock.getHeelSectioning());
-        assertEquals(4, testSock.getPly());
-        assertEquals(14, testSock.getDecreaseRounds());
+        Assertions.assertEquals(60, testSock.getStitchNr());
+        Assertions.assertEquals(15, testSock.getCuffLength());
+        Assertions.assertEquals(50, testSock.getLegLength());
+        Assertions.assertEquals(43, testSock.getShoeSize());
+        Assertions.assertEquals(66, testSock.getFootLength());
+        Assertions.assertEquals("10 / 10 / 10", testSock.getHeelSectioning());
+        Assertions.assertEquals(4, testSock.getPly());
+        Assertions.assertEquals(14, testSock.getDecreaseRounds());
     }
 
     @Test
-    public void testGetHeelStitchPair(){
+    void testGetHeelStitchPair(){
         GUI gui = new GUI(sock);
         sock.setGUI(gui);
         sock.setHeelStitchPair(Pair.with(11,11));
-        assertEquals(Pair.with(11,11), sock.getHeelStitchPair());
+        Assertions.assertEquals(Pair.with(11,11), sock.getHeelStitchPair());
     }
 
     @Test
-    public void testSetCuffLength(){
+    void testSetCuffLength(){
         sock.setCuffLength(10);
-        assertEquals(10, sock.getCuffLength());
+        Assertions.assertEquals(10, sock.getCuffLength());
     }
 
     @Test
-    public void testSetLegLength(){
+    void testSetLegLength(){
         sock.setLegLength(44);
-        assertEquals(44, sock.getLegLength());
+        Assertions.assertEquals(44, sock.getLegLength());
     }
 
     @Test
-    public void testSetShoeSize(){
+    void testSetShoeSize(){
         sock.setShoeSize(45);
-        assertEquals(45, sock.getShoeSize());
-        assertEquals(80, sock.getFootLength());
+        Assertions.assertEquals(45, sock.getShoeSize());
+        Assertions.assertEquals(80, sock.getFootLength());
     }
 
     @Test
-    public void testSetFootLength(){
+    void testSetFootLength(){
         sock.setFootLength(77);
-        assertEquals(77,sock.getFootLength());
+        Assertions.assertEquals(77,sock.getFootLength());
     }
 
     @Test
-    public void testShoeSizeToFootLength() {
+    void testShoeSizeToFootLength() {
         sock.setPly(4);
-        assertEquals(20, sock.shoeSizeToFootLength(33));
-        assertEquals(40, sock.shoeSizeToFootLength(37));
-        assertEquals(50, sock.shoeSizeToFootLength(39));
-        assertEquals(55, sock.shoeSizeToFootLength(40));
-        assertEquals(65, sock.shoeSizeToFootLength(42));
-        assertEquals(80, sock.shoeSizeToFootLength(45));
+        Assertions.assertEquals(20, sock.shoeSizeToFootLength(33));
+        Assertions.assertEquals(40, sock.shoeSizeToFootLength(37));
+        Assertions.assertEquals(50, sock.shoeSizeToFootLength(39));
+        Assertions.assertEquals(55, sock.shoeSizeToFootLength(40));
+        Assertions.assertEquals(65, sock.shoeSizeToFootLength(42));
+        Assertions.assertEquals(80, sock.shoeSizeToFootLength(45));
 
         sock.setPly(6);
-        assertEquals(15, sock.shoeSizeToFootLength(33));
-        assertEquals(30, sock.shoeSizeToFootLength(37));
-        assertEquals(37, sock.shoeSizeToFootLength(39));
-        assertEquals(41, sock.shoeSizeToFootLength(40));
-        assertEquals(48, sock.shoeSizeToFootLength(42));
-        assertEquals(60, sock.shoeSizeToFootLength(45));
+        Assertions.assertEquals(15, sock.shoeSizeToFootLength(33));
+        Assertions.assertEquals(30, sock.shoeSizeToFootLength(37));
+        Assertions.assertEquals(37, sock.shoeSizeToFootLength(39));
+        Assertions.assertEquals(41, sock.shoeSizeToFootLength(40));
+        Assertions.assertEquals(48, sock.shoeSizeToFootLength(42));
+        Assertions.assertEquals(60, sock.shoeSizeToFootLength(45));
     }
 
     @Test
-    public void testGenerateHeelSectioning(){
+    void testGenerateHeelSectioning(){
         GUI gui = new GUI(sock);
         sock.setGUI(gui);
 
         sock.setStitchNr(44);
-        assertEquals("7 / 8 / 7", sock.generateHeelSectioning());
+        Assertions.assertEquals("7 / 8 / 7", sock.generateHeelSectioning());
         sock.setStitchNr(53);
-        assertEquals("9 / 8 / 9", sock.generateHeelSectioning());
+        Assertions.assertEquals("9 / 8 / 9", sock.generateHeelSectioning());
         sock.setStitchNr(60);
-        assertEquals("10 / 10 / 10", sock.generateHeelSectioning());
+        Assertions.assertEquals("10 / 10 / 10", sock.generateHeelSectioning());
         sock.setStitchNr(67);
-        assertEquals("11 / 11 / 11", sock.generateHeelSectioning());
+        Assertions.assertEquals("11 / 11 / 11", sock.generateHeelSectioning());
         sock.setStitchNr(75);
-        assertEquals("12 / 13 / 12", sock.generateHeelSectioning());
+        Assertions.assertEquals("12 / 13 / 12", sock.generateHeelSectioning());
     }
 
 }

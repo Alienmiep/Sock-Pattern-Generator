@@ -1,21 +1,21 @@
 package sockpatterngenerator;
 
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.Assert.*;
 
-public class PatternHandlerTest {
+class PatternHandlerTest {
 
     static Sock sock = new Sock();
     static PatternHandler patternHandler = new PatternHandler(sock);
     static Path pathTestDirectory = Path.of(System.getProperty("user.dir") + "/TestDirectory");
 
-    private static void clearDirectory(Path path){
+    static void clearDirectory(Path path){
         if(Files.isDirectory(path)){
             try(var stream = Files.newDirectoryStream(path)){
                 for(var s: stream){
@@ -26,43 +26,43 @@ public class PatternHandlerTest {
     }
 
     @Test
-    public void testSetPath(){
+    void testSetPath(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
         patternHandler.setPathMyPatterns(newPath);
-        assertEquals(newPath, patternHandler.getPathMyPatterns());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMyPatterns());
+        Assertions.assertTrue(Files.exists(newPath));
 
         patternHandler.setPathMyPatterns(newPath);
-        assertEquals(newPath, patternHandler.getPathMyPatterns());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMyPatterns());
+        Assertions.assertTrue(Files.exists(newPath));
     }
 
     @Test
-    public void testSetPathMySocksNoDirectory(){
+    void testSetPathMySocksNoDirectory(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
         try {
             Files.deleteIfExists(newPath);
         } catch (IOException ignored){}
 
         patternHandler.setPathMySocks(newPath);
-        assertEquals(newPath, patternHandler.getPathMySocks());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMySocks());
+        Assertions.assertTrue(Files.exists(newPath));
     }
 
     @Test
-    public void testSetPathMyPatternsNoDirectory(){
+    void testSetPathMyPatternsNoDirectory(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
         try {
             Files.deleteIfExists(newPath);
         } catch (IOException ignored){}
 
         patternHandler.setPathMyPatterns(newPath);
-        assertEquals(newPath, patternHandler.getPathMyPatterns());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMyPatterns());
+        Assertions.assertTrue(Files.exists(newPath));
     }
 
     @Test
-    public void testSetPathDirectoryAlreadyExists(){
+    void testSetPathDirectoryAlreadyExists(){
         Path newPath = Path.of(System.getProperty("user.dir") + "/Test");
         try {
             Files.createDirectory(newPath);
@@ -71,26 +71,26 @@ public class PatternHandlerTest {
         }
 
         patternHandler.setPathMySocks(newPath);
-        assertEquals(newPath, patternHandler.getPathMySocks());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMySocks());
+        Assertions.assertTrue(Files.exists(newPath));
 
         patternHandler.setPathMyPatterns(newPath);
-        assertEquals(newPath, patternHandler.getPathMyPatterns());
-        assertTrue(Files.exists(newPath));
+        Assertions.assertEquals(newPath, patternHandler.getPathMyPatterns());
+        Assertions.assertTrue(Files.exists(newPath));
     }
 
     @Test
-    public void testFindFilenameEmptyDirectory(){
+    void testFindFilenameEmptyDirectory(){
         patternHandler.setPathMySocks(pathTestDirectory);
         patternHandler.setPathMyPatterns(pathTestDirectory);
         clearDirectory(pathTestDirectory);
 
-        assertEquals("sock0", patternHandler.findFilename(false));
-        assertEquals("pattern0", patternHandler.findFilename(true));
+        Assertions.assertEquals("sock0", patternHandler.findFilename(false));
+        Assertions.assertEquals("pattern0", patternHandler.findFilename(true));
     }
 
     @Test
-    public void testFindFilenameNameAvailable(){
+    void testFindFilenameNameAvailable(){
         patternHandler.setPathMySocks(pathTestDirectory);
         patternHandler.setPathMyPatterns(pathTestDirectory);
         clearDirectory(pathTestDirectory);
@@ -101,8 +101,8 @@ public class PatternHandlerTest {
         } catch(IOException e){
             System.out.println("Unable to create file.");
         }
-        assertEquals("sock1", patternHandler.findFilename(false));
-        assertEquals("pattern1", patternHandler.findFilename(true));
+        Assertions.assertEquals("sock1", patternHandler.findFilename(false));
+        Assertions.assertEquals("pattern1", patternHandler.findFilename(true));
 
         try{
             Files.createFile(Path.of(pathTestDirectory + "/sock1.json"));
@@ -112,12 +112,12 @@ public class PatternHandlerTest {
         } catch(IOException e){
             System.out.println("Unable to create file.");
         }
-        assertEquals("sock3", patternHandler.findFilename(false));
-        assertEquals("pattern3", patternHandler.findFilename(true));
+        Assertions.assertEquals("sock3", patternHandler.findFilename(false));
+        Assertions.assertEquals("pattern3", patternHandler.findFilename(true));
     }
 
     @Test
-    public void testFindFilenameNoNameAvailable(){
+    void testFindFilenameNoNameAvailable(){
         patternHandler.setPathMySocks(pathTestDirectory);
         patternHandler.setPathMyPatterns(pathTestDirectory);
         clearDirectory(pathTestDirectory);
@@ -132,12 +132,12 @@ public class PatternHandlerTest {
             }
         }
 
-        assertEquals("default", patternHandler.findFilename(false));
-        assertEquals("default", patternHandler.findFilename(true));
+        Assertions.assertEquals("default", patternHandler.findFilename(false));
+        Assertions.assertEquals("default", patternHandler.findFilename(true));
     }
 
     @Test
-    public void testSaveSock() {
+    void testSaveSock() {
         patternHandler.setPathMySocks(pathTestDirectory);
         String filename = "test";
         Path path = Path.of(pathTestDirectory + "/" + filename + ".json");
@@ -147,24 +147,24 @@ public class PatternHandlerTest {
 
         patternHandler.saveSock(filename);
 
-        assertTrue("File was not created", Files.exists(path));
+        Assertions.assertTrue(Files.exists(path), "File was not created");
 
     }
 
     @Test
-    public void testGeneratePattern(){
+    void testGeneratePattern(){
         patternHandler.setPathMyPatterns(pathTestDirectory);
         String filename = "test";
         Path path = Path.of(pathTestDirectory + "/" + filename + ".txt");
 
         patternHandler.generatePattern("test");
-        assertTrue("File was not created", Files.exists(path));
+        Assertions.assertTrue(Files.exists(path), "File was not created");
         //TODO: read in file and check the contents
     }
 
 
-    @AfterClass
-    public static void cleanup(){
+    @AfterAll
+    static void cleanup(){
         try {
             clearDirectory(pathTestDirectory);
             Files.deleteIfExists(pathTestDirectory);

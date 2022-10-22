@@ -1,17 +1,15 @@
 package sockpatterngenerator;
 
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-public class SaveDialogTest {
+class SaveDialogTest {
     JFrame frame = new JFrame();
     Sock sock = new Sock();
     PatternHandler patternHandler = new PatternHandler(sock);
@@ -19,7 +17,7 @@ public class SaveDialogTest {
     Path pathTestDirectory = Path.of(System.getProperty("user.dir") + "/TestDirectory");
 
     @Test
-    public void testEndingSetToTxt(){
+    void testEndingSetToTxt(){
         SaveDialog saveDialog = new SaveDialog(frame, true, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
@@ -29,11 +27,11 @@ public class SaveDialogTest {
         JPanel panelMain = (JPanel) panelDialog.getComponent(3);
         JLabel labelEnding = (JLabel) panelMain.getComponent(3);
 
-        assertEquals(".txt", labelEnding.getText());
+        Assertions.assertEquals(".txt", labelEnding.getText());
     }
 
     @Test
-    public void testEndingSetToJson(){
+    void testEndingSetToJson(){
         SaveDialog saveDialog = new SaveDialog(frame, false, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
@@ -43,11 +41,11 @@ public class SaveDialogTest {
         JPanel panelMain = (JPanel) panelDialog.getComponent(3);
         JLabel labelEnding = (JLabel) panelMain.getComponent(3);
 
-        assertEquals(".json", labelEnding.getText());
+        Assertions.assertEquals(".json", labelEnding.getText());
     }
 
     @Test
-    public void testSavePatternCreatesFile(){
+    void testSavePatternCreatesFile(){
         SaveDialog saveDialog = new SaveDialog(frame, true, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
@@ -66,11 +64,11 @@ public class SaveDialogTest {
         textField.setText("test");
         buttonSave.doClick();
 
-        assertTrue(Files.exists(Path.of(pathTestDirectory + "/test.txt")));
+        Assertions.assertTrue(Files.exists(Path.of(pathTestDirectory + "/test.txt")));
     }
 
     @Test
-    public void testSaveSockCreatesFile(){
+    void testSaveSockCreatesFile(){
         SaveDialog saveDialog = new SaveDialog(frame, false, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
@@ -89,11 +87,11 @@ public class SaveDialogTest {
         textField.setText("test");
         buttonSave.doClick();
 
-        assertTrue(Files.exists(Path.of(pathTestDirectory + "/test.json")));
+        Assertions.assertTrue(Files.exists(Path.of(pathTestDirectory + "/test.json")));
     }
 
-    @AfterClass
-    public static void cleanup(){
+    @AfterAll
+    static void cleanup(){
         PatternHandlerTest.cleanup();
     }
 

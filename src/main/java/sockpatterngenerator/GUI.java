@@ -13,7 +13,6 @@ import java.io.IOException;
 public class GUI {
 
     private PatternHandler patternHandler = null;
-    private Sock sock;
 
     private JFrame frame;
     private JPanel panelMain;
@@ -26,7 +25,6 @@ public class GUI {
     private GUIPanel.ToeboxPanel toeboxPanel;
 
     public GUI(Sock s){
-        sock = s;
 
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
@@ -57,11 +55,11 @@ public class GUI {
         panelMain.setOpaque(false);
         panelMain.setLayout(new FlowLayout(FlowLayout.CENTER,0,5));
 
-        castOnPanel = new GUIPanel.CastOnPanel(sock);
-        cuffPanel = new GUIPanel.CuffPanel(sock);
-        legPanel = new GUIPanel.LegPanel(sock);
-        heelPanel = new GUIPanel.HeelPanel(sock);
-        footPanel = new GUIPanel.FootPanel(sock);
+        castOnPanel = new GUIPanel.CastOnPanel(s);
+        cuffPanel = new GUIPanel.CuffPanel(s);
+        legPanel = new GUIPanel.LegPanel(s);
+        heelPanel = new GUIPanel.HeelPanel(s);
+        footPanel = new GUIPanel.FootPanel(s);
         toeboxPanel = new GUIPanel.ToeboxPanel();
         panelMain.add(castOnPanel);
         panelMain.add(cuffPanel);
