@@ -1,5 +1,7 @@
 package sockpatterngenerator;
 
+import org.javatuples.Pair;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -58,6 +60,7 @@ public class GUIPanel extends CustomPanel{
             textFieldStitchNr.setPreferredSize(new Dimension(30,24));
             add(textFieldStitchNr);
 
+            // TODO: build own DocumentListener out of text field to parse, range and sock.set____ calling method
             textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
                 public void changedUpdate(DocumentEvent e) { update(); }
                 public void insertUpdate(DocumentEvent e) { update(); }
@@ -127,16 +130,41 @@ public class GUIPanel extends CustomPanel{
 
             // TODO: save cuff rib pattern in sock object
             var labelRibbing = new JLabel("Rib: ");
-            add(labelRibbing);
             var textFieldRibbingKnit = new JTextField("1");
-            textFieldRibbingKnit.setPreferredSize(new Dimension(20,24));
-            add(textFieldRibbingKnit);
             var labelRibbingKnit = new JLabel("Knit,");
-            add(labelRibbingKnit);
             var textFieldRibbingPurl = new JTextField("1");
-            textFieldRibbingPurl.setPreferredSize(new Dimension(20,24));
-            add(textFieldRibbingPurl);
             var labelRibbingPurl = new JLabel("Purl");
+
+            DocumentListener cuffRibListener = new DocumentListener() {
+                public void insertUpdate(DocumentEvent e) { update();}
+                public void removeUpdate(DocumentEvent e) { update(); }
+                public void changedUpdate(DocumentEvent e) { update(); }
+                public void update(){
+                    try {
+                        var ribKnit = Integer.parseInt(textFieldRibbingKnit.getText());
+                        var ribPurl = Integer.parseInt(textFieldRibbingPurl.getText());
+                        if((ribKnit > 0 && ribKnit <= 10) && (ribPurl > 0 && ribPurl <= 10)){
+                            sock.setCuffRib(Pair.with(ribKnit, ribPurl));
+                        } else {
+                            LOGGER.warning(OUT_OF_RANGE);
+                        }
+                    }
+                    catch(NumberFormatException e){
+                        LOGGER.warning(NOT_AN_INTEGER);
+                    }
+                }
+            };
+
+            add(labelRibbing);
+
+            textFieldRibbingKnit.setPreferredSize(new Dimension(20,24));
+            textFieldRibbingKnit.getDocument().addDocumentListener(cuffRibListener);
+            add(textFieldRibbingKnit);
+            add(labelRibbingKnit);
+
+            textFieldRibbingPurl.setPreferredSize(new Dimension(20,24));
+            textFieldRibbingPurl.getDocument().addDocumentListener(cuffRibListener);
+            add(textFieldRibbingPurl);
             add(labelRibbingPurl);
         }
 

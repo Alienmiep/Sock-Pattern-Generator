@@ -18,6 +18,7 @@ public class Sock {
     private int ply;
     private int decreaseRounds;
     private Pair<Integer,Integer> heelStitchPair;
+    private Pair<Integer,Integer> cuffRib;
 
     public Sock(){
         // set default sock values
@@ -29,6 +30,7 @@ public class Sock {
         heelSectioning = generateHeelSectioning();
         ply = 4;
         decreaseRounds = 14;
+        cuffRib = Pair.with(1,1);
     }
 
     public void setGUI(GUI g){
@@ -71,6 +73,10 @@ public class Sock {
         return this.heelStitchPair;
     }
 
+    public Pair<Integer,Integer> getCuffRib(){
+        return this.cuffRib;
+    }
+
     public void setStitchNr(int stitchNr) {
         this.stitchNr = stitchNr;
         updateHeel();
@@ -100,6 +106,10 @@ public class Sock {
 
     public void setHeelStitchPair(Pair<Integer, Integer> pair) {
         this.heelStitchPair = pair;
+    }
+
+    public void setCuffRib(Pair<Integer, Integer> cuffRib) {
+        this.cuffRib = cuffRib;
     }
 
     /**

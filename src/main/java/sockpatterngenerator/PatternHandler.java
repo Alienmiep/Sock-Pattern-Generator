@@ -86,11 +86,13 @@ public class PatternHandler {
     public void generatePattern(String filename){
         int side = sock.getHeelStitchPair().getValue0();
         int middle = sock.getHeelStitchPair().getValue1();
+        var cuffKnit = sock.getCuffRib().getValue0().toString();
+        var cuffPurl = sock.getCuffRib().getValue1().toString();
 
         String pattern = filename.replace("_", " ") + "\n" +
                 "- Cast on " + sock.getStitchNr() + " stitches (using 2 2.5 mm needles)\n" +
                 "- Divide stitches onto 4 2 mm needles\n" +
-                "- " + sock.getCuffLength() + " rounds of 1x1 ribbing\n" +  // TODO: getCuffRib
+                "- " + sock.getCuffLength() + " rounds of " + cuffKnit + "x" + cuffPurl + " ribbing\n" +
                 "- Switch to 2.5 mm needles\n" +
                 "- " + sock.getLegLength() + " rounds of stockinette\n" + "\n" +
                 "The heel (German Short Row) is worked in stockinette\n" +
@@ -133,6 +135,7 @@ public class PatternHandler {
         jsonObject.put("Shoe_Size", sock.getShoeSize());
         jsonObject.put("Foot_Length", sock.getFootLength());
         jsonObject.put("Yarn Ply", sock.getPly());
+        jsonObject.put("Cuff_Rib", sock.getCuffRib());
         // TODO: ask user for any additional notes/yarn name
 
         try (var output = new FileWriter(pathMySocks + "/" + filename + JSON)){

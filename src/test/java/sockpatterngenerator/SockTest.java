@@ -33,6 +33,14 @@ class SockTest {
     }
 
     @Test
+    void testGetCuffRib(){
+        GUI gui = new GUI(sock);
+        sock.setGUI(gui);
+        sock.setCuffRib(Pair.with(2,2));
+        Assertions.assertEquals(Pair.with(2,2), sock.getCuffRib());
+    }
+
+    @Test
     void testSetCuffLength(){
         sock.setCuffLength(10);
         Assertions.assertEquals(10, sock.getCuffLength());
