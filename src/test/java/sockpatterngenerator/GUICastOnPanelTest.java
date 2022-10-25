@@ -41,8 +41,10 @@ class GUICastOnPanelTest {
 
         textFieldStitchNr.setText("-4");
         Assertions.assertNotEquals(-4, sock.getStitchNr());
+        Assertions.assertEquals(44, sock.getStitchNr());
 
         textFieldStitchNr.setText("200");
         Assertions.assertNotEquals(200, sock.getStitchNr());
+        Assertions.assertEquals(44, sock.getStitchNr());
     }
 }

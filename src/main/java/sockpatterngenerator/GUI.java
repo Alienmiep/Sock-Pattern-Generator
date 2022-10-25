@@ -72,19 +72,22 @@ public class GUI {
 
         var buttonPattern = new JButton("Generate Pattern!");
         buttonPattern.addActionListener(e -> {
-            if(patternHandler!=null) new SaveDialog(frame, true, patternHandler); });
+            if(patternHandler!=null) new SaveDialog(frame, true, true, patternHandler); });
         panelMain.add(buttonPattern);
 
         CustomPanel.addMarginPanel(panelMain, 30,30);
 
         var buttonSockData = new JButton("Save Sock Data!");
         buttonSockData.addActionListener(e -> {
-            if(patternHandler!=null) new SaveDialog(frame, false, patternHandler); });
+            if(patternHandler!=null) new SaveDialog(frame, false, true, patternHandler); });
         panelMain.add(buttonSockData);
 
         if(panelBackground != null) panelBackground.add(panelMain, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
+
+        castOnPanel.textFieldStitchNr.requestFocusInWindow();
+        castOnPanel.textFieldStitchNr.setCaretPosition(2);
         frame.setVisible(true);
     }
 

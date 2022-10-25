@@ -30,7 +30,7 @@ public class GUIPanel extends CustomPanel{
      */
     public static class CastOnPanel extends GUIPanel{
 
-        private JTextField textFieldStitchNr;
+        JTextField textFieldStitchNr;
 
         public CastOnPanel(Sock sock){
             super();
@@ -44,7 +44,7 @@ public class GUIPanel extends CustomPanel{
             comboBoxYarn.addItemListener(e -> {
                 int ply;
                 if (comboBoxYarn.getSelectedIndex() == 1) {
-                    ply = 6;  // TODO: potentially convert stitchNr if ply changed
+                    ply = 6;
                 } else {
                     ply = 4;
                 }

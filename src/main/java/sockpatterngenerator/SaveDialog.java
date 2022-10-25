@@ -5,9 +5,10 @@ import java.awt.*;
 
 public class SaveDialog extends JDialog {
 
-    public SaveDialog(Frame owner, Boolean isPattern, PatternHandler patternHandler){
+    public SaveDialog(Frame owner, Boolean isPattern, Boolean isLocked, PatternHandler patternHandler){
         super(owner, "Save File");
 
+        if(Boolean.TRUE.equals(isLocked)) setModalityType(ModalityType.DOCUMENT_MODAL);
         String ending;
         String recommendedFilename = patternHandler.findFilename(isPattern);
 

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +20,7 @@ class SaveDialogTest {
 
     @Test
     void testEndingSetToTxt(){
-        SaveDialog saveDialog = new SaveDialog(frame, true, patternHandler);
+        SaveDialog saveDialog = new SaveDialog(frame, true, false, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
         JLayeredPane layeredPane = (JLayeredPane) rootPane.getComponent(1);
@@ -32,7 +34,7 @@ class SaveDialogTest {
 
     @Test
     void testEndingSetToJson(){
-        SaveDialog saveDialog = new SaveDialog(frame, false, patternHandler);
+        SaveDialog saveDialog = new SaveDialog(frame, false, false, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
         JLayeredPane layeredPane = (JLayeredPane) rootPane.getComponent(1);
@@ -46,7 +48,8 @@ class SaveDialogTest {
 
     @Test
     void testSavePatternCreatesFile(){
-        SaveDialog saveDialog = new SaveDialog(frame, true, patternHandler);
+        patternHandler.setPathMyPatterns(pathTestDirectory);
+        SaveDialog saveDialog = new SaveDialog(frame, true, false, patternHandler);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
         JLayeredPane layeredPane = (JLayeredPane) rootPane.getComponent(1);
@@ -60,7 +63,6 @@ class SaveDialogTest {
             Files.deleteIfExists(Path.of(pathTestDirectory + "/test.txt"));
         } catch (IOException ignored){}
 
-        patternHandler.setPathMyPatterns(pathTestDirectory);
         textField.setText("test");
         buttonSave.doClick();
 
@@ -69,7 +71,9 @@ class SaveDialogTest {
 
     @Test
     void testSaveSockCreatesFile(){
-        SaveDialog saveDialog = new SaveDialog(frame, false, patternHandler);
+        patternHandler.setPathMySocks(pathTestDirectory);
+        SaveDialog saveDialog = new SaveDialog(frame, false, false, patternHandler);
+        saveDialog.setModalityType(Dialog.ModalityType.MODELESS);
 
         JRootPane rootPane = (JRootPane) saveDialog.getComponent(0);
         JLayeredPane layeredPane = (JLayeredPane) rootPane.getComponent(1);
@@ -83,7 +87,6 @@ class SaveDialogTest {
             Files.deleteIfExists(Path.of(pathTestDirectory + "/test.json"));
         } catch (IOException ignored){}
 
-        patternHandler.setPathMySocks(pathTestDirectory);
         textField.setText("test");
         buttonSave.doClick();
 
