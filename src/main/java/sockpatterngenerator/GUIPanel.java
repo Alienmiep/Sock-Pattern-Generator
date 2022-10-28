@@ -59,6 +59,7 @@ public class GUIPanel extends CustomPanel{
             textFieldStitchNr = new JTextField(Integer.toString(sock.getStitchNr()));
             textFieldStitchNr.setPreferredSize(new Dimension(30,24));
             add(textFieldStitchNr);
+            textFieldStitchNr.setInputVerifier(new RangeVerifier(0,101));
 
             // TODO: build own DocumentListener out of text field to parse, range and sock.set____ calling method
             textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
@@ -66,20 +67,49 @@ public class GUIPanel extends CustomPanel{
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    try {
-                        var stitchNr = Integer.parseInt(textFieldStitchNr.getText());
-                        if(stitchNr > 0 && stitchNr <= 100){
-                            sock.setStitchNr(stitchNr);
+                    //try {
+                        if(textFieldStitchNr.getInputVerifier().verify(textFieldStitchNr)){
+                            sock.setStitchNr(Integer.parseInt(textFieldStitchNr.getText()));
+
                         } else {
                             LOGGER.warning(OUT_OF_RANGE);
                         }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
-                    }
+                    //}
+                    // catch(NumberFormatException e){
+                        //LOGGER.warning(NOT_AN_INTEGER);
+                    //}
                 }
             });
 
+        }
+
+        static class RangeVerifier extends InputVerifier {
+            private final int min;
+            private final int max;
+            public RangeVerifier(int min, int max){
+                super();
+                this.min = min;
+                this.max = max;
+            }
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField textField = (JTextField) input;
+                try {
+                    var stitchNr = Integer.parseInt(textField.getText());
+                    if(stitchNr > min && stitchNr < max){
+                        textField.setBackground(Color.WHITE);
+                        return true;
+                    } else {
+                        LOGGER.warning(OUT_OF_RANGE);
+                        textField.setBackground(Color.PINK);
+                        return false;
+                    }
+                } catch(NumberFormatException nfe){
+                    textField.setBackground(Color.PINK);
+                    LOGGER.warning(NOT_AN_INTEGER);
+                    return false;
+                }
+            }
         }
 
     }
