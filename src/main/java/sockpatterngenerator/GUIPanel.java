@@ -25,6 +25,35 @@ public class GUIPanel extends CustomPanel{
         setOpaque(false);
     }
 
+    static class RangeVerifier extends InputVerifier {
+        private final int min;
+        private final int max;
+        public RangeVerifier(int min, int max){
+            super();
+            this.min = min;
+            this.max = max;
+        }
+        @Override
+        public boolean verify(JComponent input) {
+            JTextField textField = (JTextField) input;
+            try {
+                var stitchNr = Integer.parseInt(textField.getText());
+                if(stitchNr >= min && stitchNr <= max){
+                    textField.setBackground(Color.WHITE);
+                    return true;
+                } else {
+                    LOGGER.warning(OUT_OF_RANGE);
+                    textField.setBackground(Color.PINK);
+                    return false;
+                }
+            } catch(NumberFormatException nfe){
+                textField.setBackground(Color.PINK);
+                LOGGER.warning(NOT_AN_INTEGER);
+                return false;
+            }
+        }
+    }
+
     /**
      * Panel that contains the yarn thickness (ply) and number of stitches to cast on
      */
@@ -58,60 +87,20 @@ public class GUIPanel extends CustomPanel{
 
             textFieldStitchNr = new JTextField(Integer.toString(sock.getStitchNr()));
             textFieldStitchNr.setPreferredSize(new Dimension(30,24));
+            textFieldStitchNr.setInputVerifier(new RangeVerifier(1, 100));
             add(textFieldStitchNr);
-            textFieldStitchNr.setInputVerifier(new RangeVerifier(0,101));
 
-            // TODO: build own DocumentListener out of text field to parse, range and sock.set____ calling method
             textFieldStitchNr.getDocument().addDocumentListener(new DocumentListener() {
                 public void changedUpdate(DocumentEvent e) { update(); }
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    //try {
                         if(textFieldStitchNr.getInputVerifier().verify(textFieldStitchNr)){
                             sock.setStitchNr(Integer.parseInt(textFieldStitchNr.getText()));
-
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
                         }
-                    //}
-                    // catch(NumberFormatException e){
-                        //LOGGER.warning(NOT_AN_INTEGER);
-                    //}
                 }
             });
-
         }
-
-        static class RangeVerifier extends InputVerifier {
-            private final int min;
-            private final int max;
-            public RangeVerifier(int min, int max){
-                super();
-                this.min = min;
-                this.max = max;
-            }
-            @Override
-            public boolean verify(JComponent input) {
-                JTextField textField = (JTextField) input;
-                try {
-                    var stitchNr = Integer.parseInt(textField.getText());
-                    if(stitchNr > min && stitchNr < max){
-                        textField.setBackground(Color.WHITE);
-                        return true;
-                    } else {
-                        LOGGER.warning(OUT_OF_RANGE);
-                        textField.setBackground(Color.PINK);
-                        return false;
-                    }
-                } catch(NumberFormatException nfe){
-                    textField.setBackground(Color.PINK);
-                    LOGGER.warning(NOT_AN_INTEGER);
-                    return false;
-                }
-            }
-        }
-
     }
 
     /**
@@ -131,6 +120,7 @@ public class GUIPanel extends CustomPanel{
 
             textFieldCuffLength = new JTextField(Integer.toString(sock.getCuffLength()));
             textFieldCuffLength.setPreferredSize(new Dimension(25,24));
+            textFieldCuffLength.setInputVerifier(new RangeVerifier(0, 200));
             add(textFieldCuffLength);
 
             textFieldCuffLength.getDocument().addDocumentListener(new DocumentListener() {
@@ -138,16 +128,8 @@ public class GUIPanel extends CustomPanel{
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    try {
-                        var cuffLength = Integer.parseInt(textFieldCuffLength.getText());
-                        if(cuffLength >= 0 && cuffLength <= 200){
-                            sock.setCuffLength(cuffLength);
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
+                    if(textFieldCuffLength.getInputVerifier().verify(textFieldCuffLength)){
+                        sock.setCuffLength(Integer.parseInt(textFieldCuffLength.getText()));
                     }
                 }
             });
@@ -158,11 +140,12 @@ public class GUIPanel extends CustomPanel{
             CustomPanel.addMarginPanel(this,150,24);
             CustomPanel.addMarginPanel(this,380,5);
 
-            // TODO: save cuff rib pattern in sock object
             var labelRibbing = new JLabel("Rib: ");
             var textFieldRibbingKnit = new JTextField("1");
+            textFieldRibbingKnit.setInputVerifier(new RangeVerifier(1,10));
             var labelRibbingKnit = new JLabel("Knit,");
             var textFieldRibbingPurl = new JTextField("1");
+            textFieldRibbingPurl.setInputVerifier(new RangeVerifier(1,10));
             var labelRibbingPurl = new JLabel("Purl");
 
             DocumentListener cuffRibListener = new DocumentListener() {
@@ -170,17 +153,11 @@ public class GUIPanel extends CustomPanel{
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void changedUpdate(DocumentEvent e) { update(); }
                 public void update(){
-                    try {
+                    if(textFieldRibbingKnit.getInputVerifier().verify(textFieldRibbingKnit) &&
+                       textFieldRibbingPurl.getInputVerifier().verify(textFieldRibbingPurl)) {
                         var ribKnit = Integer.parseInt(textFieldRibbingKnit.getText());
                         var ribPurl = Integer.parseInt(textFieldRibbingPurl.getText());
-                        if((ribKnit > 0 && ribKnit <= 10) && (ribPurl > 0 && ribPurl <= 10)){
-                            sock.setCuffRib(Pair.with(ribKnit, ribPurl));
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
+                        sock.setCuffRib(Pair.with(ribKnit, ribPurl));
                     }
                 }
             };
@@ -217,6 +194,7 @@ public class GUIPanel extends CustomPanel{
 
             textFieldLegLength = new JTextField(Integer.toString(sock.getLegLength()));
             textFieldLegLength.setPreferredSize(new Dimension(30,24));
+            textFieldLegLength.setInputVerifier(new RangeVerifier(0, 200));
             add(textFieldLegLength);
 
             textFieldLegLength.getDocument().addDocumentListener(new DocumentListener() {
@@ -224,16 +202,8 @@ public class GUIPanel extends CustomPanel{
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    try {
-                        var input = Integer.parseInt(textFieldLegLength.getText());
-                        if(input >= 0 && input <= 200){
-                            sock.setLegLength(input);
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
+                    if(textFieldLegLength.getInputVerifier().verify(textFieldLegLength)){
+                        sock.setLegLength(Integer.parseInt(textFieldLegLength.getText()));
                     }
                 }
             });
@@ -288,6 +258,7 @@ public class GUIPanel extends CustomPanel{
 
             textFieldShoeSize = new JTextField(Integer.toString(sock.getShoeSize()));
             textFieldShoeSize.setPreferredSize(new Dimension(30,24));
+            textFieldShoeSize.setInputVerifier(new RangeVerifier(30,60));
             add(textFieldShoeSize);
 
             CustomPanel.addMarginPanel(this,30,24);
@@ -297,6 +268,7 @@ public class GUIPanel extends CustomPanel{
 
             textFieldFootLength = new JTextField(Integer.toString(sock.getFootLength()));
             textFieldFootLength.setPreferredSize(new Dimension(30,24));
+            textFieldFootLength.setInputVerifier(new RangeVerifier(1,200));
             add(textFieldFootLength);
 
             textFieldShoeSize.getDocument().addDocumentListener(new DocumentListener() {
@@ -304,35 +276,20 @@ public class GUIPanel extends CustomPanel{
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    try {
-                        var length = Integer.parseInt(textFieldShoeSize.getText());
-                        if(length < 60 && length > 30){
-                            sock.setShoeSize(length);
-                            textFieldFootLength.setText(Integer.toString(sock.getFootLength()));
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
+                    if(textFieldShoeSize.getInputVerifier().verify(textFieldShoeSize)) {
+                        sock.setShoeSize(Integer.parseInt(textFieldShoeSize.getText()));
+                        textFieldFootLength.setText(Integer.toString(sock.getFootLength()));
                     }
                 }
             });
+
             textFieldFootLength.getDocument().addDocumentListener(new DocumentListener() {
                 public void changedUpdate(DocumentEvent e) { update(); }
                 public void insertUpdate(DocumentEvent e) { update(); }
                 public void removeUpdate(DocumentEvent e) { update(); }
                 public void update() {
-                    try {
-                        var input = Integer.parseInt(textFieldFootLength.getText());
-                        if(input > 0 && input < 200){
-                            sock.setFootLength(input);
-                        } else {
-                            LOGGER.warning(OUT_OF_RANGE);
-                        }
-                    }
-                    catch(NumberFormatException e){
-                        LOGGER.warning(NOT_AN_INTEGER);
+                    if(textFieldFootLength.getInputVerifier().verify(textFieldFootLength)){
+                        sock.setFootLength(Integer.parseInt(textFieldFootLength.getText()));
                     }
                 }
             });
