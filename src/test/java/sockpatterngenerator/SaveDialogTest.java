@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,7 +40,7 @@ class SaveDialogTest {
         JPanel panel = (JPanel) layeredPane.getComponent(0);
         CustomPanel panelDialog = (CustomPanel) panel.getComponent(0);
         JPanel panelMain = (JPanel) panelDialog.getComponent(3);
-        JLabel labelEnding = (JLabel) panelMain.getComponent(3);
+        JLabel labelEnding = (JLabel) panelMain.getComponent(7);
 
         Assertions.assertEquals(".json", labelEnding.getText());
     }
@@ -80,8 +79,8 @@ class SaveDialogTest {
         JPanel panel = (JPanel) layeredPane.getComponent(0);
         CustomPanel panelDialog = (CustomPanel) panel.getComponent(0);
         JPanel panelMain = (JPanel) panelDialog.getComponent(3);
-        JButton buttonSave = (JButton) panelMain.getComponent(5);
-        JTextField textField = (JTextField) panelMain.getComponent(2);
+        JButton buttonSave = (JButton) panelMain.getComponent(9);
+        JTextField textField = (JTextField) panelMain.getComponent(6);
 
         try {
             Files.deleteIfExists(Path.of(pathTestDirectory + "/test.json"));

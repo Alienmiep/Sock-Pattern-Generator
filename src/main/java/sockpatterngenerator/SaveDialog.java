@@ -12,6 +12,11 @@ public class SaveDialog extends JDialog {
         String ending;
         String recommendedFilename = patternHandler.findFilename(isPattern);
 
+        var panelDialog = new CustomPanel();
+        panelDialog.setMarginRight(20);
+        panelDialog.setMarginLeft(20);
+
+
         var label = new JLabel("Filename: ");
         var textField = new JTextField(recommendedFilename);
         textField.setColumns(15);
@@ -25,16 +30,18 @@ public class SaveDialog extends JDialog {
                 dispose();
             });
         } else {
+            var labelNotes = new JLabel("Additional Notes: ");
+            panelDialog.add(labelNotes);
+            CustomPanel.addMarginPanel(panelDialog, 100, 20);
+            var textAreaNotes = new JTextArea(3,25);
+            panelDialog.add(textAreaNotes);
+            CustomPanel.addMarginPanel(panelDialog,200, 5);
             ending = ".json";
             buttonSave.addActionListener(e ->  {
-                patternHandler.saveSock(textField.getText());
+                patternHandler.saveSock(textField.getText(), textAreaNotes.getText());
                 dispose();
             });
         }
-
-        var panelDialog = new CustomPanel();
-        panelDialog.setMarginRight(20);
-        panelDialog.setMarginLeft(20);
 
         var labelEnding = new JLabel(ending);
         panelDialog.add(label);
@@ -48,7 +55,7 @@ public class SaveDialog extends JDialog {
 
         add(panelDialog);
 
-        setSize(320,140);
+        setSize(320,220);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);

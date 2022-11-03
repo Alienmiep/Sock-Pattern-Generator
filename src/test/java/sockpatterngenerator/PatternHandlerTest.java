@@ -145,7 +145,7 @@ class PatternHandlerTest {
             Files.deleteIfExists(path);
         } catch(IOException ignored) {}
 
-        patternHandler.saveSock(filename);
+        patternHandler.saveSock(filename, "");
 
         Assertions.assertTrue(Files.exists(path), "File was not created");
 

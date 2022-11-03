@@ -128,7 +128,7 @@ public class PatternHandler {
         }
     }
 
-    public void saveSock(String filename){
+    public void saveSock(String filename, String notes){
 
         LinkedHashMap<String, String> sockData = new LinkedHashMap<>();
 
@@ -139,6 +139,7 @@ public class PatternHandler {
         sockData.put("Foot_Length", Integer.toString(sock.getFootLength()));
         sockData.put("Yarn Ply", Integer.toString(sock.getPly()));
         sockData.put("Cuff_Rib", sock.getCuffRib().toString());
+        sockData.put("Notes", notes);
 
         var jsonString = JSONValue.toJSONString(sockData);
 
