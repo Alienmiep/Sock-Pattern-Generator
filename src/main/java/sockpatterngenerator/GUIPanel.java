@@ -68,6 +68,7 @@ public class GUIPanel extends CustomPanel{
             var yarnOptions = new String[]{"4-ply Sock Yarn", "6-ply Sock Yarn"};
             JComboBox<String> comboBoxYarn = new JComboBox<>(yarnOptions);
             comboBoxYarn.setPreferredSize(new Dimension(130,30));
+            comboBoxYarn.setBackground(Color.WHITE);
             add(comboBoxYarn);
 
             comboBoxYarn.addItemListener(e -> {
@@ -224,12 +225,22 @@ public class GUIPanel extends CustomPanel{
 
         public HeelPanel(Sock sock){
             super();
-            setHeight(50);
+            setHeight(90);
+
+            var heelOptions = new String[]{"German Short Row"};
+            JComboBox<String> comboBoxHeel = new JComboBox<>(heelOptions);
+            comboBoxHeel.setPreferredSize(new Dimension(140,30));
+            comboBoxHeel.setBackground(Color.WHITE);
+            add(comboBoxHeel);
+
+            CustomPanel.addMarginPanel(this,100,30);
+            CustomPanel.addMarginPanel(this,350,1);
 
             var labelHeadline = new JLabel("Heel sectioning:");
             add(labelHeadline);
 
             labelHeelSectioning = new JLabel(sock.getHeelSectioning());
+            labelHeelSectioning.setFont(labelHeelSectioning.getFont().deriveFont(14F));
             add(labelHeelSectioning);
         }
 
@@ -311,7 +322,7 @@ public class GUIPanel extends CustomPanel{
 
         public ToeboxPanel(){
             super();
-            setHeight(105);
+            setHeight(91);
 
             var labelToebox1a = new JLabel("Decrease every other round for");
             add(labelToebox1a);
@@ -321,7 +332,7 @@ public class GUIPanel extends CustomPanel{
             var labelToebox1b = new JLabel("total rounds");
             add(labelToebox1b);
 
-            CustomPanel.addMarginPanel(this,380,5);
+            CustomPanel.addMarginPanel(this,380,1);
 
             var labelToebox2a = new JLabel("Decreases every round until");
             add(labelToebox2a);

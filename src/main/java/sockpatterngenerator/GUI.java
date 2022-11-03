@@ -68,7 +68,7 @@ public class GUI {
         panelMain.add(footPanel);
         panelMain.add(toeboxPanel);
 
-        CustomPanel.addMarginPanel(panelMain, 380,20);
+        CustomPanel.addMarginPanel(panelMain, 380,10);
 
         var buttonPattern = new JButton("Generate Pattern!");
         buttonPattern.addActionListener(e -> {
