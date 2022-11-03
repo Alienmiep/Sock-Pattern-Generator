@@ -4,9 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
-import org.json.simple.JSONObject;
+import com.google.gson.*;
+import org.json.simple.JSONValue;
 
 /**
  * The class responsible for exporting
@@ -128,18 +130,26 @@ public class PatternHandler {
 
     public void saveSock(String filename){
 
-        var jsonObject = new JSONObject();
-        jsonObject.put("Stitch_Nr", sock.getStitchNr());
-        jsonObject.put("Cuff_Length", sock.getCuffLength());
-        jsonObject.put("Leg_Length", sock.getLegLength());
-        jsonObject.put("Shoe_Size", sock.getShoeSize());
-        jsonObject.put("Foot_Length", sock.getFootLength());
-        jsonObject.put("Yarn Ply", sock.getPly());
-        jsonObject.put("Cuff_Rib", sock.getCuffRib());
+        LinkedHashMap<String, String> sockData = new LinkedHashMap<>();
+
+        sockData.put("Stitch_Nr", Integer.toString(sock.getStitchNr()));
+        sockData.put("Cuff_Length", Integer.toString(sock.getCuffLength()));
+        sockData.put("Leg_Length", Integer.toString(sock.getLegLength()));
+        sockData.put("Shoe_Size", Integer.toString(sock.getShoeSize()));
+        sockData.put("Foot_Length", Integer.toString(sock.getFootLength()));
+        sockData.put("Yarn Ply", Integer.toString(sock.getPly()));
+        sockData.put("Cuff_Rib", sock.getCuffRib().toString());
+
+        var jsonString = JSONValue.toJSONString(sockData);
+
+        var gson = new GsonBuilder().setPrettyPrinting().create();
+        var jsonElement = JsonParser.parseString(jsonString);
+        var prettyJsonString = gson.toJson(jsonElement);
+
         // TODO: ask user for any additional notes/yarn name
 
         try (var output = new FileWriter(pathMySocks + "/" + filename + JSON)){
-            output.write(jsonObject.toJSONString());
+            output.write(prettyJsonString);
         } catch (IOException e) {
             LOGGER.warning("Unable to create JSON file.");
         }
