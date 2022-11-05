@@ -2,62 +2,43 @@ package sockpatterngenerator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class SaveDialog extends JDialog {
 
-    public SaveDialog(Frame owner, Boolean isPattern, Boolean isLocked, PatternHandler patternHandler){
+    CustomPanel panelDialog;
+    JLabel labelEnding;
+    JTextField textField;
+    JButton buttonSave;
+
+    public SaveDialog(Frame owner, Boolean isLocked){
         super(owner, "Save File");
 
         if(Boolean.TRUE.equals(isLocked)) setModalityType(ModalityType.DOCUMENT_MODAL);
-        String ending;
-        String recommendedFilename = patternHandler.findFilename(isPattern);
 
-        var panelDialog = new CustomPanel();
+        panelDialog = new CustomPanel();
         panelDialog.setMarginRight(20);
         panelDialog.setMarginLeft(20);
 
+        add(panelDialog);
+    }
 
+    public void addFilenameGroup(String recommendedFilename, String ending, ActionListener buttonListener){
         var label = new JLabel("Filename: ");
-        var textField = new JTextField(recommendedFilename);
-        textField.setColumns(15);
-        var buttonSave = new JButton("Save");
-
-        if(Boolean.TRUE.equals(isPattern)) {
-            ending = ".txt";
-            buttonSave.addActionListener(e ->  {
-                patternHandler.generatePattern(textField.getText());
-                // TODO: handle case that file with that name already exists (add (1) at the end?)
-                dispose();
-            });
-        } else {
-            var labelNotes = new JLabel("Additional Notes: ");
-            panelDialog.add(labelNotes);
-            CustomPanel.addMarginPanel(panelDialog, 100, 20);
-            var textAreaNotes = new JTextArea(3,25);
-            panelDialog.add(textAreaNotes);
-            CustomPanel.addMarginPanel(panelDialog,200, 5);
-            ending = ".json";
-            buttonSave.addActionListener(e ->  {
-                patternHandler.saveSock(textField.getText(), textAreaNotes.getText());
-                dispose();
-            });
-        }
-
-        var labelEnding = new JLabel(ending);
         panelDialog.add(label);
-
         CustomPanel.addMarginPanel(panelDialog,80,30);
+
+        textField = new JTextField();
+        textField.setColumns(15);
+        textField.setText(recommendedFilename);
+        buttonSave = new JButton("Save");
+        buttonSave.addActionListener(buttonListener);
+        labelEnding = new JLabel(ending);
 
         panelDialog.add(textField);
         panelDialog.add(labelEnding);
+
         CustomPanel.addMarginPanel(panelDialog, 5,30);
         panelDialog.add(buttonSave);
-
-        add(panelDialog);
-
-        setSize(320,220);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 }
