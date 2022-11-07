@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.javatuples.Pair;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
+
+import java.util.stream.Stream;
 
 class SockTest {
 
     Sock sock = new Sock();
-
-
 
     @Test
     void testSockDefaultValues(){
@@ -65,40 +67,45 @@ class SockTest {
         Assertions.assertEquals(77,sock.getFootLength());
     }
 
-    @Test
-    void testShoeSizeToFootLength() {
+    @ParameterizedTest
+    @MethodSource("provideShoeSizeInts")
+    void testShoeSizeToFootLength(int input, int output4ply, int output6ply) {
         sock.setPly(4);
-        Assertions.assertEquals(20, sock.shoeSizeToFootLength(33));
-        Assertions.assertEquals(40, sock.shoeSizeToFootLength(37));
-        Assertions.assertEquals(50, sock.shoeSizeToFootLength(39));
-        Assertions.assertEquals(55, sock.shoeSizeToFootLength(40));
-        Assertions.assertEquals(65, sock.shoeSizeToFootLength(42));
-        Assertions.assertEquals(80, sock.shoeSizeToFootLength(45));
+        Assertions.assertEquals(output4ply, sock.shoeSizeToFootLength(input));
 
         sock.setPly(6);
-        Assertions.assertEquals(15, sock.shoeSizeToFootLength(33));
-        Assertions.assertEquals(30, sock.shoeSizeToFootLength(37));
-        Assertions.assertEquals(37, sock.shoeSizeToFootLength(39));
-        Assertions.assertEquals(41, sock.shoeSizeToFootLength(40));
-        Assertions.assertEquals(48, sock.shoeSizeToFootLength(42));
-        Assertions.assertEquals(60, sock.shoeSizeToFootLength(45));
+        Assertions.assertEquals(output6ply, sock.shoeSizeToFootLength(input));
     }
 
-    @Test
-    void testGenerateHeelSectioning(){
+    private static Stream<Arguments> provideShoeSizeInts() {
+        return Stream.of(
+                Arguments.of(33, 20, 15),
+                Arguments.of(37, 40, 30),
+                Arguments.of(39, 50, 37),
+                Arguments.of(40, 55, 41),
+                Arguments.of(42, 65, 48),
+                Arguments.of(45, 80, 60)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideHeelSectionings")
+    void testGenerateHeelSectioning(int input, String expected){
         GUI gui = new GUI(sock);
         sock.setGUI(gui);
 
-        sock.setStitchNr(44);
-        Assertions.assertEquals("7 / 8 / 7", sock.generateHeelSectioning());
-        sock.setStitchNr(53);
-        Assertions.assertEquals("9 / 8 / 9", sock.generateHeelSectioning());
-        sock.setStitchNr(60);
-        Assertions.assertEquals("10 / 10 / 10", sock.generateHeelSectioning());
-        sock.setStitchNr(67);
-        Assertions.assertEquals("11 / 11 / 11", sock.generateHeelSectioning());
-        sock.setStitchNr(75);
-        Assertions.assertEquals("12 / 13 / 12", sock.generateHeelSectioning());
+        sock.setStitchNr(input);
+        Assertions.assertEquals(expected, sock.generateHeelSectioning());
+    }
+
+    private static Stream<Arguments> provideHeelSectionings(){
+        return Stream.of(
+                Arguments.of(44, "7 / 8 / 7"),
+                Arguments.of(53, "9 / 8 / 9"),
+                Arguments.of(60, "10 / 10 / 10"),
+                Arguments.of(67, "11 / 11 / 11"),
+                Arguments.of(75, "12 / 13 / 12")
+        );
     }
 
 }
